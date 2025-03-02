@@ -19,4 +19,4 @@ php artisan key:generate
 php artisan migrate
 php artisan serve
 ```
-# HAVE FUN FOR YOUR ADVENTURE
+# HAVE FUN FOR YOUR ADVENTURE 🖕🖕🖕
