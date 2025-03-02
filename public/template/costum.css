@@ -1,0 +1,22 @@
+.carousel-item img {
+    width: 400px;
+    height: 500px;
+}
+.text-center img {
+    width: 700px;
+    height: 350px;
+}
+.carousel-control-next, .carousel-control-prev{
+    	widht: 40px;
+        height: 60px;
+        top: calc(50% - 25px);
+        background-color:rgb(0, 0, 0);
+        opacity: .4;
+        border-radius:35%;
+    }
+    .carousel-control-next{
+    	right: 2%;
+    }
+    .carousel-control-prev{
+    	left: 2%;
+    }
