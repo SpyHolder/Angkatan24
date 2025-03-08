@@ -1,11 +1,14 @@
 <footer class="relative w-full">
+
     <!-- Background Image (Pertahankan positioning asli) -->
-    <img src="{{ asset('template/image/mainFooter.svg') }}" alt=""
-        class="w-full absolute bottom-11 md:bottom-0 h-[150px] md:h-auto object-cover">
+    <div class="md:absolute inset-0">
+        <img src="{{ asset('template/image/mainFooter.svg') }}" alt=""
+            class="w-full z-0 bottom-11 md:bottom-0 h-auto md:h-auto object-cover">
+    </div>
 
     <!-- Social Icons Container (Pertahankan style dasar) -->
-    <div class="flex justify-center relative mt-3 md:mt-14 lg:mt-[110px] px-4">
-        <div class="flex items-center gap-2 md:gap-4"> <!-- Tambahkan gap untuk responsivitas -->
+    <div class="relative md:top-24">
+        <div class="flex justify-center items-center gap-2 md:gap-4 md:mt-6"> <!-- Tambahkan gap untuk responsivitas -->
             <a href="" target="_blank" class="hover:opacity-80 transition-opacity">
                 <img src="{{ asset('template/image/facebook.svg') }}" alt="Facebook"
                     class="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10">
@@ -27,10 +30,12 @@
                     class="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10">
             </a>
         </div>
+        <p class="text-center m-2 md:m-4 md:text-lg text-sm font-semibold">
+            Copyright &copy; Diversi-TI 2024
+        </p>
     </div>
 
     <!-- Copyright Text (Pertahankan positioning relatif) -->
-    <p class="text-center m-2 md:m-4 md:text-lg relative z-10 text-sm font-semibold">
-        Copyright &copy; Diversi-TI 2024
-    </p>
+
+    
 </footer>
