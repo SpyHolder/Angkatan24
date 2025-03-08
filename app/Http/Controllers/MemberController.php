@@ -11,8 +11,10 @@ class MemberController extends Controller
 {
     public function member(){
         $users = Member::all();
+        $usersPicture = MemberPicture::all();
         return view('Users.member',[
             'user'=> $users,
+            'userPicture'=> $usersPicture,
             'title'=>'User Members'
         ]);
     }

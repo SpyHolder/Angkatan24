@@ -3,12 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Member;
+use App\Models\News;
+use App\Models\MemberPicture;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function news()
     {
-        return view('Main.index');
+        $data = News::all();
+        return view('Main.news',compact('data'),[
+            'title' => 'News'
+        ]);
+    }
+    public function members()
+    {
+        $data = Member::all();
+        return view('Main.members',compact('data'),[
+            'title' => 'Members'
+        ]);
     }
     public function login()
     {

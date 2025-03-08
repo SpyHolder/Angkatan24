@@ -5,7 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NewsController;
 
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/news',[HomeController::class,'news'])->name('news');
+Route::get('/members',[HomeController::class,'members'])->name('members');
 
 Route::get('/member-home',[MemberController::class,'member'])->name('member-index');
 Route::get('/news-home',[NewsController::class,'news'])->name('news-index');
