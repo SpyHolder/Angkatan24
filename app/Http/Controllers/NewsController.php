@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\Login;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Support\Facades\File;
 
@@ -11,24 +12,36 @@ class NewsController extends Controller
 {
     public function news()
     {
-        $news = News::all();
-        // dd($news);
+        $loginNews = News::with('login')->get();
         return view('Users.news', [
-            'news' => $news,
+            'loginNews' => $loginNews,
+            
             'title' => 'User News'
         ]);
     }
+
+    public function loginInfo($id){
+        $loginInfo = Login::where('login_id',$id)->get()->toArray();
+
+        return response()->json($loginInfo);
+    }
+
     public function addNews()
     {
-        return view('Users.addnews', ['title' => 'User News']);
+        $loginInfo = Login::findOrFail(session('sessionID'));
+        // dd($loginInfo);
+        return view('Users.addnews', [
+            'loginID'=>$loginInfo,
+            'title' => 'User News',
+        ]);
     }
 
     public function storeNews(Request $request)
     {
+        // dd($request);
         // Validasi inputan kosong
         $validasi = $request->validate([
             'headline' => 'required',
-            'publisher' => 'required',
             'covarage' => 'required',
             'tanggal' => 'required',
             'waktu' => 'required',
@@ -48,7 +61,7 @@ class NewsController extends Controller
         //memasukkan data ke database
         $berita = News::create([
             'headline_news' => $validasi['headline'],
-            'publisher' => $validasi['publisher'],
+            'login_id' => session('sessionID'),
             'covarage_area' => $validasi['covarage'],
             'date_publish' => $validasi['tanggal'],
             'time_publish' => $validasi['waktu'],
@@ -83,7 +96,6 @@ class NewsController extends Controller
         // Validasi inputan kosong
         $validasi = $request->validate([
             'headline' => 'required',
-            'publisher' => 'required',
             'covarage' => 'required',
             'tanggal' => 'required',
             'waktu' => 'required',
@@ -94,7 +106,7 @@ class NewsController extends Controller
 
         $beritas->update([
             'headline_news' => $request->headline,
-            'publisher' => $request->publisher,
+            'login_id' => session('sessionID'),
             'covarage_area' => $request->covarage,
             'data_publish' => $request->tanggal,
             'time_publish' => $request->waktu,

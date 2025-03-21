@@ -24,20 +24,20 @@
                                     <img id="imageDisplay" src="https://placehold.co/700x400"
                                         class="img-fluid rounded-3 mb-1">
                                     <input type="file" class="form-control w-50 mx-auto" id="imageInput"
-                                        accept="image/*" name='thumbnail' accept=".jpeg,.png,.jpg,.gif,.svg">
+                                        accept="image/*" name='thumbnail' accept=".jpeg,.png,.jpg,.gif,.svg" required>
                                 </div>
                                 <div class="mt-2">
                                     <label for="headline" class="form-label">Judul Berita</label>
-                                    <input type="text" class="form-control" id="headline" name="headline">
+                                    <input type="text" class="form-control" id="headline" name="headline" required>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
                                         <label for="publisher" class="form-label">Nama Publisher</label>
-                                        <input type="text" class="form-control" id="publisher" name="publisher">
+                                        <input type="text" class="form-control" id="publisher" value="{{ $loginID->username }}" readonly>
                                     </div>
                                     <div class="col">
                                         <label for="tempat" class="form-label">Tempat Liputan</label>
-                                        <input type="text" class="form-control" id="tempat" name="covarage">
+                                        <input type="text" class="form-control" id="tempat" name="covarage" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="mt-2">
                                     <label for="isi" class="form-label">Isi Berita</label>
-                                    <textarea name="content" id="summernote" class="form-control"></textarea>
+                                    <textarea name="content" id="summernote" class="form-control" required></textarea>
                                 </div>
                             </div>
 

@@ -12,10 +12,14 @@ class News extends Model
         'picture_news',
         'headline_news',
         'status',
-        'publisher',
+        'login_id',
         'covarage_area',
         'date_publish',
         'time_publish',
         'content_news'
     ];
+    public function login()
+    {
+        return $this->belongsTo(Login::class,'login_id','login_id');
+    }
 }

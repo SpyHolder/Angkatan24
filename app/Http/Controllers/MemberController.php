@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\MemberPicture;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
@@ -18,8 +19,18 @@ class MemberController extends Controller
             'title'=>'User Members'
         ]);
     }
+
+    public function memberImg($id){
+        $memberPicture = MemberPicture::where('member_id',$id)->get()->toArray();
+        return response()->json($memberPicture);
+    }
+
     public function addMember(){
         return view('Users.addmember',['title'=>'User Members']);
+    }
+
+    public function memberAdd(){
+        return view('Members.addmember',['title'=>'User Members']);
     }
 
     public function storeMember(Request $request){
@@ -43,10 +54,10 @@ class MemberController extends Controller
             'year_out' => $request->yearout,
             'rarity' => $request->rarity,
             'rank' => $request->rank,
-            'instagram' => $request->instagram,
-            'github' => $request->github,
-            'linkedid' => $request->linkedid,
-            'website' => $request->website,
+            // 'instagram' => $request->instagram,
+            // 'github' => $request->github,
+            // 'linkedid' => $request->linkedid,
+            // 'website' => $request->website,
         ];
 
         $inputAnggota = Member::create($dataAnggota);
@@ -97,5 +108,9 @@ class MemberController extends Controller
         } else {
             return redirect()->route('member-index')->with('gagal', 'Gagal terkonfirmasi');
         }
+    }
+
+    public function updateMember(Request $req,$id){
+
     }
 }

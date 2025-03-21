@@ -54,31 +54,32 @@
         <div class="flex">
             <div class="p-5 sm:p-8">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-8">
-                    
-                    {{-- Card Grid --}}
-                    <div
-                        class="break-inside-avoid bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700 overflow-hidden group">
-                        <a href="#">
-                            <div class=" overflow-hidden">
-                                <img class="rounded-t-lg w-full h-48 object-cover group-hover:scale-110"
-                                    src="https://akcdn.detik.net.id/visual/2024/10/15/prabowo-panggil-sejumlah-tokoh-ke-kertanegara-12_169.jpeg?w=650&q=90" alt="Berita terbaru"/>
-                            </div>
-                                <div class="p-5">
-                                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-black group-hover:underline">
-                                        Menteri PU Sebut Sekolah Rakyat Gratis Prabowo Dibangun di 100 Daerah
-                                    </h5>
-                                    <a href="#"
-                                        class="inline-flex items-center mt-2 px-3 py-2 text-sm font-medium text-center text-black rounded-lg hover:bg-black hover:text-white border border-black">
-                                        Read more
-                                        <svg class="w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                        </svg>
-                                    </a>
+                    @foreach ($data as $news)
+                        
+                        {{-- Card Grid --}}
+                        <div class="break-inside-avoid bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700 overflow-hidden group">
+                            <a href="#">
+                                <div class=" overflow-hidden">
+                                    <img class="rounded-t-lg scale-[7/4] object-fill group-hover:scale-110"
+                                        src="{{ asset('img/news/'.$news->picture_news) }}" alt="Berita terbaru"/>
                                 </div>
-                        </a>
-                    </div>
+                                    <div class="p-3">
+                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-black group-hover:underline">
+                                            {{ $news->headline_news }}
+                                        </h5>
+                                        <a href="#"
+                                            class="inline-flex items-center mt-2 px-3 py-2 text-sm font-medium text-center text-black rounded-lg hover:bg-black hover:text-white border border-black">
+                                            Read more
+                                            <svg class="w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                            </a>
+                        </div>
+                    @endforeach
 
                 </div>
             </div>

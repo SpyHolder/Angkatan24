@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title }}</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
@@ -26,7 +26,9 @@
     <!-- Sidebar & Navbar -->
     <!-- End Sidebar & Navbar -->
     <div class="wrapper sidebar_minimize">
-        <x-User-Navbar></x-User-Navbar>
+        @if(Auth::user()->isAdmin())
+            <x-User-Navbar></x-User-Navbar>
+        @endif
         <div class="main-panel">
             <x-User-Profile-Nav>
                 <x-slot:title>{{ $title }}</x-slot:title>
@@ -34,7 +36,9 @@
 
             {{ $slot }}
 
-            <x-User-Footer></x-User-Footer>
+            @if(Auth::user()->isAdmin())
+                <x-User-Footer></x-User-Footer>
+            @endif
         </div>
     </div>
 

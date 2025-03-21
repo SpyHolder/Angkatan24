@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id('member_id')->incerement();
-            $table->unsignedBigInteger('login_id')->incerement();
+            $table->unsignedBigInteger('login_id');
             $table->string('full_name');
             $table->string('nim')->unique();
             $table->text('description');

@@ -10,4 +10,13 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    optimizeDeps: {
+        include: ['flowbite'],
+    },
+    // server: {
+    //     hmr: {
+    //         host: ' https://bb5b-103-124-196-126.ngrok-free.app',
+    //         protocol: 'wss',
+    //     },
+    // }
 });

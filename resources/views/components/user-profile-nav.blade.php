@@ -41,7 +41,12 @@
                             <li class="text-center">
                                 <a class="dropdown-item" href="#">Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <div>
+                                    <form action="{{ route('logout') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                    </form>
+                                </div>
                             </li>
                         </div>
                     </ul>

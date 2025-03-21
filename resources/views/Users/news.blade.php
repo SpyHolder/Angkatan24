@@ -31,10 +31,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($news as $berita)    
+                                        @foreach ($loginNews as $berita)
                                         <tr>
                                             <td class="col-5 text-truncate" style="max-width: 150px;">{{ $berita->headline_news }}</td>
-                                            <td>{{ $berita->publisher }}</td>
+                                            <td>{{ $berita->login->username }}</td>
                                             <td class="text-center">{{ $berita->date_publish }} {{ $berita->time_publish }}</td>
                                             <td>{{ $berita->covarage_area }}</td>
                                             <td class="text-center">

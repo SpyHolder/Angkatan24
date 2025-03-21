@@ -14,12 +14,14 @@ return new class extends Migration
             $table->string('picture_news');
             $table->string('headline_news');
             $table->integer('status')->default('0');
-            $table->string('publisher');
+            $table->unsignedBigInteger('login_id');
             $table->string('covarage_area');
             $table->date('date_publish');
             $table->time('time_publish');
-            $table->string('content_news');
+            $table->text('content_news');
             $table->timestamps();
+
+            $table->foreign('login_id')->references('login_id')->on('Logins')->onDelete('cascade');
         });
     }
 

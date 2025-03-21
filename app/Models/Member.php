@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Member extends Model
 {
@@ -20,7 +21,7 @@ class Member extends Model
         'rarity',
         'rank',
         'instagram',
-        'linkedin',
+        'linkedid',
         'github',
         'status',
         'website',
@@ -39,8 +40,8 @@ class Member extends Model
     {
         return $this->belongsTo(Login::class);
     }
-    public function member_picture()
+    public function relasiMany()
     {
-        return $this->hasMany(MemberPicture::class);
+        return $this->hasMany(MemberPicture::class,'member_id','member_id');
     }
 }

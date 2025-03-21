@@ -34,6 +34,12 @@
                         <p>News</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->is('user-home')||request()->is('user-add') ? 'active' : '' }}">
+                    <a  href="/user-home" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-users"></i>
+                        <p>User</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

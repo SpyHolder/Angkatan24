@@ -1,4 +1,4 @@
-<nav class="bg-white border-y border-black dark:bg-white mt-5 sticky top-0 w-full z-10 nav-margin shadow-lg">
+<nav class="bg-white border-y border-black dark:bg-white mt-5 sticky top-0 w-full z-50 nav-margin shadow-lg">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <a href="/news" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('/template/image/diversiti.svg') }}" class="h-12 lg:h-[65px]" alt="Diversi-TI" />
