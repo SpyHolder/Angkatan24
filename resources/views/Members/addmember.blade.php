@@ -42,7 +42,7 @@
                                         <div class="col-7">
                                             <label for="fullname" class="form-label">Full Name</label>
                                             <input type="text" class="form-control" id="fullname" name="fullname"
-                                                required>
+                                            required value="{{ $dataLogin->full_name ?? '' }}">
                                         </div>
                                         <div class="container">
                                             <label for="nim" class="form-label">NIM</label>

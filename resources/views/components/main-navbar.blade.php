@@ -1,4 +1,4 @@
-<nav class="bg-white border-y border-black dark:bg-white mt-5 sticky top-0 w-full z-50 nav-margin shadow-lg">
+<nav class="bg-white border-y border-black dark:bg-white mt-5 sticky top-0 w-full z-50 nav-margin shadow-lg animate-fade-down animate-duration-1000 animate-delay-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <a href="/news" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('/template/image/diversiti.svg') }}" class="h-12 lg:h-[65px]" alt="Diversi-TI" />
@@ -19,19 +19,19 @@
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-black rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-white">
                 <li>
                     <a href="/news"
-                        class="flex items-center py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('news') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl">
+                        class="flex items-center mt-2 md:mt-0 py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('news') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl">
                         News
                     </a>
                 </li>
                 <li>
                     <a href="/members"
-                        class="flex items-center py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('members') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
+                        class="flex items-center mt-2 md:mt-0 py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('members') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
                         Members
                     </a>
                 </li>
                 <li>
-                    <a href="/about"
-                        class="flex items-center py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('about') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
+                    <a href="/about-us"
+                        class="flex items-center py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('about-us') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
                         About Us
                     </a>
                 </li>

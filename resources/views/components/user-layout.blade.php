@@ -26,9 +26,7 @@
     <!-- Sidebar & Navbar -->
     <!-- End Sidebar & Navbar -->
     <div class="wrapper sidebar_minimize">
-        @if(Auth::user()->isAdmin())
-            <x-User-Navbar></x-User-Navbar>
-        @endif
+        <x-User-Navbar></x-User-Navbar>
         <div class="main-panel">
             <x-User-Profile-Nav>
                 <x-slot:title>{{ $title }}</x-slot:title>
@@ -37,7 +35,7 @@
             {{ $slot }}
 
             @if(Auth::user()->isAdmin())
-                <x-User-Footer></x-User-Footer>
+            <x-User-Footer></x-User-Footer>
             @endif
         </div>
     </div>

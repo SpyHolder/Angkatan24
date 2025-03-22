@@ -108,9 +108,9 @@ class NewsController extends Controller
             'headline_news' => $request->headline,
             'login_id' => session('sessionID'),
             'covarage_area' => $request->covarage,
-            'data_publish' => $request->tanggal,
+            'date_publish' => $request->tanggal,
             'time_publish' => $request->waktu,
-            'content_news' => $request->content,
+            'content_news' => $validasi['content'],
         ]);
 
         $oldThumb = $request->input('oldThumbnail');

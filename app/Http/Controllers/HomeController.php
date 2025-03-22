@@ -10,15 +10,21 @@ use App\Models\MemberPicture;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
     public function news()
     {
-        $data = News::all();
+        $data = News::with('login')->get();
         return view('Main.news',compact('data'),[
             'title' => 'News'
         ]);
+    }
+    public function detailNews($id){
+        $dataDetail = News::with('login')->findOrFail($id);
+        $dataNews = News::with('login')->get();
+        return view('Main.detailNews',compact('dataDetail','dataNews'),['title'=> 'Detail News']);
     }
     public function members()
     {
@@ -27,6 +33,10 @@ class HomeController extends Controller
             'title' => 'Members',
             'datas'=>$datas,
         ]);
+    }
+    public function aboutUs(){
+        $data = [];
+        return view('Main.aboutUs',compact('data'),['title'=>'About Us']);
     }
     public function login()
     {
@@ -52,7 +62,10 @@ class HomeController extends Controller
             if ($user->isAdmin()) {
                 return redirect()->route('member-index');
             } else if ($user->isMember()) {
-                return redirect()->route('member-add');
+
+                $dataLogin = Member::find(session('sessionID'));
+
+                return redirect()->route('member-add',compact('dataLogin'));
             }
         }
 

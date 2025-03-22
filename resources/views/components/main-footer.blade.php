@@ -3,8 +3,7 @@
     <!-- Background Image -->
     <div class="absolute inset-0 h-full w-full overflow-hidden">
         <img src="{{ asset('template/image/mainFooter.svg') }}" alt="Footer Background"
-            class="w-full h-full object-cover object-center opacity-90"
-            loading="lazy"> <!-- Tambahkan lazy loading -->
+            class="w-full h-full object-cover object-center opacity-90" loading="lazy"> <!-- Tambahkan lazy loading -->
     </div>
 
     <!-- Content Container -->
@@ -12,25 +11,20 @@
         <!-- Social Icons -->
         <div class="flex flex-col items-center justify-center gap-6">
             <div class="flex justify-center items-center gap-4 md:gap-6">
-                <a href="#" target="_blank" class="p-2 hover:scale-110 transition-transform duration-300">
-                    <img src="{{ asset('template/image/facebook.svg') }}" alt="Facebook" 
-                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
-                </a>
-                <a href="https://www.instagram.com/diversiti.24/" target="_blank" class="p-2 hover:scale-110 transition-transform duration-300">
+                <a href="https://www.instagram.com/diversiti.24/" target="_blank"
+                    class="p-2 hover:scale-110 transition-transform duration-300">
                     <img src="{{ asset('template/image/instagram.svg') }}" alt="Instagram"
-                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
+                        class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
                 </a>
-                <a href="https://discord.gg/5hAUJR2Z" target="_blank" class="p-2 hover:scale-110 transition-transform duration-300">
+                <a href="https://discord.gg/5hAUJR2Z" target="_blank"
+                    class="p-2 hover:scale-110 transition-transform duration-300">
                     <img src="{{ asset('template/image/discord.svg') }}" alt="Discord"
-                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
+                        class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
                 </a>
-                <a href="https://chat.whatsapp.com/FEb6VWsjPcq78iG9L5Ah4x" target="_blank" class="p-2 hover:scale-110 transition-transform duration-300">
+                <a href="https://chat.whatsapp.com/FEb6VWsjPcq78iG9L5Ah4x" target="_blank"
+                    class="p-2 hover:scale-110 transition-transform duration-300">
                     <img src="{{ asset('template/image/whatsapp.svg') }}" alt="Whatsapp"
-                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
-                </a>
-                <a href="#" target="_blank" class="p-2 hover:scale-110 transition-transform duration-300">
-                    <img src="{{ asset('template/image/tiktok.svg') }}" alt="Tiktok"
-                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
+                        class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
                 </a>
             </div>
 

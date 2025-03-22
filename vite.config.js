@@ -15,8 +15,9 @@ export default defineConfig({
     },
     // server: {
     //     hmr: {
-    //         host: ' https://bb5b-103-124-196-126.ngrok-free.app',
+    //         host: 'https://4474-103-124-196-126.ngrok-free.app',
     //         protocol: 'wss',
+    //         clientPort: 4040,
     //     },
     // }
 });

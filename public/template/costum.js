@@ -1,9 +1,9 @@
-//! Menyalakan Modal
-// document.addEventListener('DOMContentLoaded', function () {
-//     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-//         myModal.show();
-// });
-//! Akhir Modal
+document.addEventListener('DOMContentLoaded', function () {
+    //! Menyalakan Modal
+    // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    //     myModal.show();
+    //! Akhir Modal
+});
 
 //! IDK Part 2
 WebFont.load({
@@ -130,7 +130,7 @@ async function EditNews(dataNews){
     } catch (error) {
         console.error('Error:', error);
     }
-    
+    let tglFormat = dataNews.date_publish.split("T")[0];
     let modalHtml = `
 <div class="modal fade" id="exampleModal${dataNews.news_id}" tabindex="-1" aria-labelledby="exampleModalLabel${dataNews.news_id}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -168,7 +168,7 @@ async function EditNews(dataNews){
                         <div class="row mt-2">
                             <div class="col">
                                 <label for="date" class="form-label">Tanggal Pembuatan</label>
-                                <input type="date" class="form-control" id="date" readonly value="${dataNews.date_publish}" name="tanggal">
+                                <input type="date" class="form-control" id="date" readonly value="${tglFormat}" name="tanggal">
                             </div>
                             <div class="col">
                                 <label for="time" class="form-label">Waktu Pembuatan</label>
