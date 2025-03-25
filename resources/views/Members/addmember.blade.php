@@ -9,8 +9,11 @@
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title">New Members</h4>
 
-                            <form action="{{ route('member-store') }}" method="post"enctype="multipart/form-data">
+                            <form action="{{ empty($dataLogin) ? route('member-store') : route('member-update',$dataLogin->member_id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
+                                @if (!empty($dataLogin))
+                                    @method('PUT')
+                                @endif
                                 <button class="btn btn-primary rounded">
                                     <span class="btn-label"><i class="fa fa-save"></i></span>
                                     Save
@@ -47,51 +50,51 @@
                                         <div class="container">
                                             <label for="nim" class="form-label">NIM</label>
                                             <input type="number" class="form-control" id="nim" name="nim"
-                                                required>
+                                                required value="{{ $dataLogin->nim ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                                        <textarea name="description" id="description" class="form-control" rows="5">{{ $dataLogin->description ?? '' }}</textarea>
                                     </div>
                                     <div class="mt-3">
                                         <label for="Quote" class="form-label">Quote</label>
-                                        <textarea name="quote" id="Quote" class="form-control" rows="3"></textarea>
+                                        <textarea name="quote" id="Quote" class="form-control" rows="3">{{ $dataLogin->quote ?? '' }}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <label for="YearIn" class="form-label">Year In</label>
                                             <input value="2024" name="yearin" type="number"
-                                                class="form-control" id="YearIn" readonly>
+                                                class="form-control" id="YearIn" readonly value="{{ $dataLogin->year_in ?? '' }}">
                                         </div>
                                         <div class="col">
                                             <label for="YearOut" class="form-label">Year Out</label>
                                             <input type="number" class="form-control" id="YearOut"
-                                                name="yearout" minlength="4" min="2023" placeholder="YYYY">
+                                                name="yearout" minlength="4" min="2023" placeholder="YYYY" value="{{ $dataLogin->year_out ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <label for="instagram" class="form-label">Instagram</label>
                                             <input type="text" class="form-control" id="instagram"
-                                                name="instagram">
+                                                name="instagram" value="{{ $dataLogin->instagram ?? '' }}">
                                         </div>
                                         <div class="col">
                                             <label for="Github" class="form-label">Github</label>
                                             <input type="text" class="form-control" id="Github"
-                                                name="github">
+                                                name="github" value="{{ $dataLogin->github ?? '' }}">
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col">
                                             <label for="LinkedID" class="form-label">LinkedID</label>
                                             <input type="text" class="form-control" id="LinkedID"
-                                                name="linkedid">
+                                                name="linkedid" value="{{ $dataLogin->linkedid ?? '' }}">
                                         </div>
                                         <div class="col">
                                             <label for="Website" class="form-label">Website</label>
                                             <input type="text" class="form-control" id="Website"
-                                                name="website">
+                                                name="website" value="{{ $dataLogin->website ?? '' }}">
                                         </div>
                                     </div>
                                 </div>

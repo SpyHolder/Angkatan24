@@ -33,7 +33,7 @@
                         aria-expanded="false">
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
-                            <span class="fw-bold">Holder</span>
+                            <span class="fw-bold">User</span>
                         </span>
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn "style="width: 50px;">

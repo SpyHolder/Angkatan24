@@ -12,9 +12,9 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
 
-                            <a href="/user-add" class="btn btn-primary rounded">
+                            <a href="/news-add-admin" class="btn btn-primary rounded">
                                 <span class="btn-label"><i class="fa fa-plus"></i></span>
-                                Add New User Login
+                                Add New News
                             </a>
                         </div>
                         <div class="card-body">
@@ -22,23 +22,31 @@
                                 <table id="basic-datatables" class="display table table-striped">
                                     <thead class="table-secondary">
                                         <tr class="text-center">
-                                            <th>No</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
+                                            <th>Judul Berita</th>
+                                            <th>Publisher</th>
+                                            <th>Tanggal & Waktu Pembuatan</th>
+                                            <th>Tempat Berita</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($dataLogin as $index => $data)
+                                        @foreach ($loginNews as $berita)
                                         <tr>
-                                            <td class="text-center">{{ $index + 1 }}</td>
-                                            <td>{{ $data->username }}</td>
-                                            <td>{{ $data->email }}</td>
-                                            <td class="text-center">{{ $data->role }}</td>
+                                            <td class="col-5 text-truncate" style="max-width: 150px;">{{ $berita->headline_news }}</td>
+                                            <td>{{ $berita->login->username }}</td>
+                                            <td class="text-center">{{ $berita->date_publish }} {{ $berita->time_publish }}</td>
+                                            <td>{{ $berita->covarage_area }}</td>
+                                            <td class="text-center">
+                                                @if ($berita->status == 0)    
+                                                    <span class="badge badge-warning">Pending</span>
+                                                @else
+                                                    <span class="badge badge-success">Complete</span>
+                                                @endif
+                                            </td>
                                             <td class="col-5">
                                                 <div class="d-flex justify-content-center">
-                                                    <form id="destroy" action="{{ route('user-destroy',$data->login_id) }}" method="post" enctype="multipart/form-data">
+                                                    <form id="destroy" action="{{ route('news-destroy-admin',$berita->news_id) }}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger m-1 rounded show_delete" data-toggle="tooltip" type="submit">
@@ -46,10 +54,18 @@
                                                             Hapus
                                                         </button>
                                                     </form>
-                                                    <button class="btn btn-sm btn-warning rounded m-1" type="button" onclick='EditNews({!! json_encode($data) !!})'>
+                                                    <button class="btn btn-sm btn-warning rounded m-1" type="button" onclick='EditNews({!! json_encode($berita) !!})'>
                                                         <span class="btn-label"><i class="fa fa-edit"></i></span>
                                                         Edit
                                                     </button>
+                                                    <form action="{{ route('news-konfirmasi-admin',$berita->news_id) }}" method="post"enctype="multipart/form-data" >
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button class="btn btn-sm btn-success m-1 rounded show_confirm" type="submit" data-toggle="tooltip" {{ $berita->status == 1 ? 'hidden' : '' }}>
+                                                            <span class="btn-label"><i class="fa fa-check"></i></span>
+                                                            Konfirmasi
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

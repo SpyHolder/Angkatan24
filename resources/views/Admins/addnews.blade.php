@@ -9,7 +9,7 @@
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title">New News</h4>
 
-                            <form action="{{ route('news-store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('news-store-admin') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <button class="btn btn-primary rounded">
                                     <span class="btn-label"><i class="fa fa-save"></i></span>

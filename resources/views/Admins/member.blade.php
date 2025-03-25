@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
 
-                            <a href="/member-add" class="btn btn-primary rounded">
+                            <a href="/member-add-admin" class="btn btn-primary rounded">
                                 <span class="btn-label"><i class="fa fa-plus"></i></span>
                                 Add New Member
                             </a>
@@ -42,7 +42,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <form action="{{ route('member-destroy', $member->member_id) }}"
+                                                        <form action="{{ route('member-destroy-admin', $member->member_id) }}"
                                                             method="post" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('DELETE')
@@ -62,7 +62,7 @@
                                                         </button>
                                                         @if ($member->status === 0)
                                                             <form
-                                                                action="{{ route('member-konfirmasi', $member->member_id) }}"
+                                                                action="{{ route('member-konfirmasi-admin', $member->member_id) }}"
                                                                 method="post" enctype="multipart/form-data">
                                                                 @csrf
                                                                 @method('PUT')

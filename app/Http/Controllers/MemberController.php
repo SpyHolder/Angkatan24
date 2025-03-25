@@ -5,34 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\MemberPicture;
+use App\Models\Login;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
-    public function member(){
+    //! Hak Admin
+    public function memberAdmin(){
         $users = Member::all();
         $usersPicture = MemberPicture::all();
-        return view('Users.member',[
+        return view('Admins.member',[
             'user'=> $users,
             'userPicture'=> $usersPicture,
             'title'=>'User Members'
         ]);
     }
 
+    //! Hak Admin
     public function memberImg($id){
         $memberPicture = MemberPicture::where('member_id',$id)->get()->toArray();
         return response()->json($memberPicture);
     }
 
-    public function addMember(){
-        return view('Users.addmember',['title'=>'User Members']);
+    //! Hak Admin
+    public function addMemberAdmin(){
+        return view('Admins.addmember',['title'=>'User Members']);
     }
 
-    public function memberAdd(){
-        return view('Members.addmember',['title'=>'User Members']);
+    //! Hak Member
+    public function memberAddMembers(){
+
+        $dataLogin = Member::where('login_id',session('sessionID'))->first();
+        return view('Members.addmember',compact('dataLogin'),['title'=>'User Members']);
     }
 
+    //! Hak Admin & Member
     public function storeMember(Request $request){
         $validasi = $request->validate([
             'fullname' => 'required',
@@ -44,8 +53,8 @@ class MemberController extends Controller
             'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-        $dataAnggota = [
-            'login_id'=>'1',
+        $dataAnggota = array_filter([
+            'login_id'=>session('sessionID'),
             'full_name' => $validasi['fullname'],
             'nim' => $validasi['nim'],
             'description' => $validasi['description'],
@@ -54,11 +63,11 @@ class MemberController extends Controller
             'year_out' => $request->yearout,
             'rarity' => $request->rarity,
             'rank' => $request->rank,
-            // 'instagram' => $request->instagram,
-            // 'github' => $request->github,
-            // 'linkedid' => $request->linkedid,
-            // 'website' => $request->website,
-        ];
+            'instagram' => $request->instagram,
+            'github' => $request->github,
+            'linkedid' => $request->linkedid,
+            'website' => $request->website,
+        ], fn($value) => !empty($value));
 
         $inputAnggota = Member::create($dataAnggota);
 
@@ -74,14 +83,25 @@ class MemberController extends Controller
         }
 
         if ($inputAnggota) {
-            return redirect()->route('member-index')->with('sukses', 'Berhasil menambah member');
+            if (Auth::user()->isAdmin()) {
+                return redirect()->route('member-index')->with('sukses', 'Berhasil menambah member');
+            } else {
+                return redirect()->route('member-add-member')->with('sukses', 'Berhasil menambah member');
+            }
         } else {
-            return redirect()->route('member-index')->with('gagal', 'Gagal menambah member');
+            if (Auth::user()->isAdmin()) {
+                return redirect()->route('member-index')->with('gagal', 'Gagal menambah member');
+            } else {
+                return redirect()->route('member-add-member')->with('gagal', 'Gagal menambah member');
+            }
         }
     }
-    function destroyMember($id){
+
+    //! Hak Admin
+    function destroyMemberAdmin($id){
         $gambarMember = MemberPicture::where('member_id',$id)->get();
         $dataMember = Member::findOrFail($id);
+        // dd($dataLogin);
         
         $validasiPicture = false;
         foreach ($gambarMember as $detelePicture) {
@@ -91,12 +111,14 @@ class MemberController extends Controller
             $validasiPicture = $detelePicture->delete();
         }
         if ($dataMember->delete()||$validasiPicture) {
-            return redirect()->route('member-index')->with('sukses', 'Berhasil menghapus member');
+            return redirect()->route('member-index-admin')->with('sukses', 'Berhasil menghapus member');
         } else {
-            return redirect()->route('member-index')->with('gagal', 'Gagal menghapus member');
+            return redirect()->route('member-index-admin')->with('gagal', 'Gagal menghapus member');
         }
     }
-    function konfirmasiMember($id){
+
+    //! Hak Admin
+    function konfirmasiMemberAdmin($id){
         $dataMember = Member::findOrFail($id);
         
         $dataMember->update([
@@ -104,13 +126,13 @@ class MemberController extends Controller
         ]);
         
         if ($dataMember) {
-            return redirect()->route('member-index')->with('sukses', 'Berhasil terkonfirmasi');
+            return redirect()->route('member-index-admin')->with('sukses', 'Berhasil terkonfirmasi');
         } else {
-            return redirect()->route('member-index')->with('gagal', 'Gagal terkonfirmasi');
+            return redirect()->route('member-index-admin')->with('gagal', 'Gagal terkonfirmasi');
         }
     }
 
-    public function updateMember(Request $req,$id){
+    public function updateMemberAdmin(Request $req,$id){
 
     }
 }

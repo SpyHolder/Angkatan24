@@ -139,7 +139,7 @@ async function EditNews(dataNews){
                 <h5 class="modal-title" id="exampleModalLabel">Edit News</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/news-update/${dataNews.news_id}" method="post" enctype="multipart/form-data">
+            <form action="/news-update-admin/${dataNews.news_id}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="oldThumbnail" value="${dataNews.picture_news}">
@@ -239,7 +239,7 @@ async function EditMemberImg(member) {
                 <h5 class="modal-title" id="exampleModalLabel">Detail Member</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/members-update/${member.member_id}" method="post" enctype="multipart/form-data">
+            <form action="/members-update-admin/${member.member_id}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                 <input type="hidden" name="_method" value="PUT">
             <div class="modal-body d-flex">

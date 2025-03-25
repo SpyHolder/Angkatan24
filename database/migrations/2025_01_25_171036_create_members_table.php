@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('quote');
             $table->year('year_in');
             $table->year('year_out')->nullable();
-            $table->string('rarity')->nullable();
+            $table->enum('rarity',['SSR','SR','R','N'])->nullable();
             $table->string('rank')->nullable();
             $table->string('instagram')->nullable();
             $table->string('linkedid')->nullable();

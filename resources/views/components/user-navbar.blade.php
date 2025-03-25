@@ -23,20 +23,20 @@
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
                 @if(Auth::user()->isAdmin())
-                    <li class="nav-item {{ request()->is('news-home')||request()->is('news-add') ? 'active' : '' }}">
-                        <a  href="/news-home" class="collapsed" aria-expanded="false">
+                    <li class="nav-item {{ request()->is('news-home-admin')||request()->is('news-add-admin') ? 'active' : '' }}">
+                        <a  href="/news-home-admin" class="collapsed" aria-expanded="false">
                             <i class="fas fa-envelope"></i>
                             <p>News</p>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('member-home')||request()->is('member-add') ? 'active' : '' }}">
-                        <a href="/member-home" class="collapsed" aria-expanded="false">
+                    <li class="nav-item {{ request()->is('member-home-admin')||request()->is('member-add-admin') ? 'active' : '' }}">
+                        <a href="/member-home-admin" class="collapsed" aria-expanded="false">
                             <i class="fas fa-users"></i>
                             <p>Members</p>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('user-home')||request()->is('user-add') ? 'active' : '' }}">
-                        <a  href="/user-home" class="collapsed" aria-expanded="false">
+                    <li class="nav-item {{ request()->is('user-home-admin')||request()->is('user-add-admin') ? 'active' : '' }}">
+                        <a  href="/user-home-admin" class="collapsed" aria-expanded="false">
                             <i class="fas fa-users"></i>
                             <p>User</p>
                         </a>

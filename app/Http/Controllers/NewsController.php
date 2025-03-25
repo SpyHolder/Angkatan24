@@ -10,33 +10,48 @@ use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
-    public function news()
+
+    //! Hak Admin
+    public function newsAdmin()
     {
         $loginNews = News::with('login')->get();
-        return view('Users.news', [
+        return view('Admins.news', [
             'loginNews' => $loginNews,
             
             'title' => 'User News'
         ]);
     }
 
+    //! Hak Publisher
+    public function newsPublisher()
+    {
+        $loginNews = News::with('login')->where('login_id',session('sessionID'))->get();
+        return view('Admins.news', [
+            'loginNews' => $loginNews,
+            'title' => 'User News'
+        ]);
+    }
+
+    //! Hak Admin
     public function loginInfo($id){
         $loginInfo = Login::where('login_id',$id)->get()->toArray();
 
         return response()->json($loginInfo);
     }
 
-    public function addNews()
+    //! Hak Admin & Publisher
+    public function addNewsAdmin()
     {
         $loginInfo = Login::findOrFail(session('sessionID'));
         // dd($loginInfo);
-        return view('Users.addnews', [
+        return view('Admins.addnews', [
             'loginID'=>$loginInfo,
             'title' => 'User News',
         ]);
     }
 
-    public function storeNews(Request $request)
+    //! Hak Admin & Publisher
+    public function storeNewsAdmin(Request $request)
     {
         // dd($request);
         // Validasi inputan kosong
@@ -71,13 +86,14 @@ class NewsController extends Controller
 
         // Validasi jika berhasil memasukkan data ke database
         if ($berita) {
-            return redirect()->route('news-index')->with('sukses', 'Berita berhasil ditambahkan');
+            return redirect()->route('news-index-admin')->with('sukses', 'Berita berhasil ditambahkan');
         } else {
-            return redirect()->route('news-index')->with('gagal', 'Berita gagal ditambahkan');
+            return redirect()->route('news-index-admin')->with('gagal', 'Berita gagal ditambahkan');
         }
     }
 
-    public function konfirmasiNews(string $id)
+    //! Hak Admin
+    public function konfirmasiNewsAdmin(string $id)
     {
         $berita = News::findOrFail($id);
 
@@ -85,13 +101,14 @@ class NewsController extends Controller
             'status'=>'1',
         ]);
         if ($validasi) {
-            return redirect()->route('news-index')->with('sukses', 'Berhasil mengkonfirmasi berita');
+            return redirect()->route('news-index-admin')->with('sukses', 'Berhasil mengkonfirmasi berita');
         } else {
-            return redirect()->route('news-index')->with('gagal', 'Gagal mengkonfirmasi berita');
+            return redirect()->route('news-index-admin')->with('gagal', 'Gagal mengkonfirmasi berita');
         }
     }
 
-    public function updateNews(Request $request, string $id)
+    //! Hak Admin & Publisher
+    public function updateNewsAdmin(Request $request, string $id)
     {
         // Validasi inputan kosong
         $validasi = $request->validate([
@@ -127,11 +144,12 @@ class NewsController extends Controller
             ]);
         }
 
-        return redirect()->route('news-index')->with('sukses', 'Berita berhasil diubah');
+        return redirect()->route('news-index-admin')->with('sukses', 'Berita berhasil diubah');
     
     }
 
-    public function destroyNews(string $id)
+    //! Hak Admin & Publisher
+    public function destroyNewsAdmin(string $id)
     {
         $beritas = News::findOrFail($id);
         if (File::exists(public_path('img/news/'.$beritas->picture_news))) {
@@ -139,9 +157,9 @@ class NewsController extends Controller
         }
 
         if ($beritas->delete()) {
-            return redirect()->route('news-index')->with('sukses', 'Berhasil menghapus berita');
+            return redirect()->route('news-index-admin')->with('sukses', 'Berhasil menghapus berita');
         } else {
-            return redirect()->route('news-index')->with('gagal', 'Gagal menghapus berita');
+            return redirect()->route('news-index-admin')->with('gagal', 'Gagal menghapus berita');
         }
     }
 }

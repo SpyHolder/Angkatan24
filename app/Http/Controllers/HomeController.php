@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
+
+//! Start Hak Akses All Role
     public function news()
     {
         $data = News::with('login')->get();
@@ -60,12 +62,9 @@ class HomeController extends Controller
 
             // Redirect ke halaman sesuai role
             if ($user->isAdmin()) {
-                return redirect()->route('member-index');
+                return redirect()->route('member-index-admin');
             } else if ($user->isMember()) {
-
-                $dataLogin = Member::find(session('sessionID'));
-
-                return redirect()->route('member-add',compact('dataLogin'));
+                return redirect()->route('member-add-member');
             }
         }
 
@@ -111,24 +110,48 @@ class HomeController extends Controller
             return redirect()->route('regis')->with('Gagal', 'Gagal Teregister');
         }
     }
-    
+//! End Hak Akses All Role
 
-
-    public function user(){
+//! Start Hak Akses ADMIN
+    public function userAdmin(){
         $dataLogin = Login::all();
-        return view('Users.user', [
+        return view('Admins.user', [
             'title' => 'User Login',
             'dataLogin'=>$dataLogin]);
     }
-    public function destroyUser(string $id)
+    public function destroyUserAdmin(string $id)
     {
         $login = Login::findOrFail($id);
         
         if ($login->delete()) {
-            return redirect()->route('user-index')->with('sukses', 'Berhasil menghapus user');
+            return redirect()->route('user-index-admin')->with('sukses', 'Berhasil menghapus user');
         } else {
-            return redirect()->route('user-index')->with('gagal', 'Gagal menghapus user');
+            return redirect()->route('user-index-admin')->with('gagal', 'Gagal menghapus user');
         }
     }
+    public function editUserAdmin(Request $req,$id){
+        $user = Login::findOrFail($id);
+
+        $validasi = $req->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+        ]);
+
+        $data = [
+            'username' => $validasi['username'],
+            'email' => $validasi['email'],
+            'role' => $validasi['role'],
+        ];
+        if(!empty($req['newPassword'])){
+            $data = array_merge($data,[
+                'password'=> Hash::make($req['newPassword'])
+            ]);
+        }
+
+        $user->update($data);
+        return redirect()->route('user-index-admin')->with('sukses', 'User berhasil diubah');
+    }
+//! End Hak Akses ADMIN
 
 }
