@@ -30,32 +30,34 @@
                     <div class="columns-1 md:columns-3 gap-2 md:gap-4 space-y-4" id="grid-container">
                         @foreach ($dataNews as $news)
                             {{-- Card Grid --}}
-                            <div class="break-inside-avoid bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700 overflow-hidden group flex md:block"
-                                id="grid-item">
-                                <a href="{{ route('detail-news', $news->news_id) }}" class="">
-                                    <div class=" overflow-hidden w-48 md:w-full">
-                                        <img class="rounded-t-lg w-full h-auto object-cover group-hover:scale-110 transition-transform duration-200 ease-in-out"
-                                            src="{{ asset('img/news/' . $news->picture_news) }}"
-                                            alt="Berita terbaru" />
-                                    </div>
-                                    <div class="p-2 md:p-3">
-                                        <h5
-                                            class="mb-2 md:text-xl font-bold line-clamp-2 md:line-clamp-none tracking-tight text-gray-900 dark:text-black group-hover:underline">
-                                            {{ $news->headline_news }}
-                                        </h5>
-                                        <a href="{{ route('detail-news', $news->news_id) }}"
-                                            class="inline-flex items-center mt-0 md:mt-2 px-3 py-2 text-xs md:text-sm font-medium text-center text-black rounded-lg group-hover:bg-black group-hover:text-white border border-black md:static absolute right-2">
-                                            Read more
-                                            <svg class="w-3 h-3 md:w-3.5 md:h-3.5 ms-2" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </a>
-                            </div>
+                            @if ($news->status == 1)
+                                <div class="break-inside-avoid bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700 overflow-hidden group flex md:block"
+                                    id="grid-item">
+                                    <a href="{{ route('detail-news', $news->news_id) }}" class="">
+                                        <div class=" overflow-hidden w-48 md:w-full">
+                                            <img class="rounded-t-lg w-full h-auto object-cover group-hover:scale-110 transition-transform duration-200 ease-in-out"
+                                                src="{{ asset('img/news/' . $news->picture_news) }}"
+                                                alt="Berita terbaru" />
+                                        </div>
+                                        <div class="p-2 md:p-3">
+                                            <h5
+                                                class="mb-2 md:text-xl font-bold line-clamp-2 md:line-clamp-none tracking-tight text-gray-900 dark:text-black group-hover:underline">
+                                                {{ $news->headline_news }}
+                                            </h5>
+                                            <a href="{{ route('detail-news', $news->news_id) }}"
+                                                class="inline-flex items-center mt-0 md:mt-2 px-3 py-2 text-xs md:text-sm font-medium text-center text-black rounded-lg group-hover:bg-black group-hover:text-white border border-black md:static absolute right-2">
+                                                Read more
+                                                <svg class="w-3 h-3 md:w-3.5 md:h-3.5 ms-2" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
                         @endforeach
 
                     </div>

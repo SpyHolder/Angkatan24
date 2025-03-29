@@ -7,7 +7,7 @@
     <title>{{ $title }}</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('template/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
 
     <!-- Fonts and icons -->
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('template/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('template/assets/css/kaiadmin.min.css') }}" />
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="{{ asset('css/summernote-lite.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('template/costum.css') }}" />
 </head>
 
@@ -65,7 +65,7 @@
     <script src="{{ asset('template/assets/js/plugin/jsvectormap/world.js') }}"></script>
 
     <!-- Sweet Alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
     <!-- Kaiadmin JS -->
     <script src="{{ asset('template/assets/js/kaiadmin.min.js') }}"></script>
@@ -73,7 +73,7 @@
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{{ asset('template/assets/js/setting-demo.js') }}"></script>
     <script src="{{ asset('template/assets/js/demo.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="{{ asset('js/summernote-lite.min.js') }}"></script>
     <script src="{{ asset('template/costum.js') }}"></script>
 
 </body>

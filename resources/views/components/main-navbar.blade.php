@@ -19,19 +19,19 @@
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-black rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-white">
                 <li>
                     <a href="/news"
-                        class="flex items-center mt-2 md:mt-0 py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('news') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl">
+                        class="flex items-center mt-2 md:mt-0 py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ (Route::is('news')||Route::is('detail-news')) ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl">
                         News
                     </a>
                 </li>
                 <li>
                     <a href="/members"
-                        class="flex items-center mt-2 md:mt-0 py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('members') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
+                        class="flex items-center mt-2 md:mt-0 py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ Route::is('members') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
                         Members
                     </a>
                 </li>
                 <li>
                     <a href="/about-us"
-                        class="flex items-center py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ request()->is('about-us') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
+                        class="flex items-center py-2 px-3 md:py-2 md:px-5 text-black transition-all {{ Route::is('about-us') ? 'border border-black' : 'border border-transparent hover:border-black' }} rounded-xl transition-all">
                         About Us
                     </a>
                 </li>

@@ -226,6 +226,100 @@ document.getElementById("NewsModal").innerHTML = modalHtml;
 }
 //! End EditNews
 
+let newImageCounter = 0; // Counter untuk memberi ID unik ke gambar baru
+
+        function previewImages(event) {
+            const files = event.target.files;
+            const carouselInner = document.querySelector(".carousel-inner");
+
+            for (let file of files) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    newImageCounter++; // Tambah ID unik
+                    let newImageId = `new-image-${newImageCounter}`;
+
+                    let newItem = document.createElement("div");
+                    newItem.classList.add("carousel-item");
+                    newItem.setAttribute("id", newImageId); // Tambahkan ID unik
+
+                    newItem.innerHTML = `
+                <img src="${e.target.result}" class="d-block w-100">
+                <div class="carousel-caption d-none d-md-block">
+                    <button type="button"
+                        onclick="removeIMG('${newImageId}')"
+                        class="btn btn-danger">
+                        Hapus Gambar
+                    </button>
+                </div>
+            `;
+
+                    carouselInner.appendChild(newItem);
+
+                    // Jika ini gambar pertama yang baru diunggah, jadikan aktif
+                    if (carouselInner.children.length === files.length + document.querySelectorAll(".carousel-item")
+                        .length) {
+                        newItem.classList.add("active");
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeIMG(imageId) {
+            const imageDiv = document.getElementById(`image-${imageId}`); // Untuk gambar lama
+            const imageDivNew = document.getElementById(imageId); // Untuk gambar baru
+            const hiddenInputContainer = document.getElementById("deletedImagesContainer");
+            let imageDivActive = null;
+
+            // Cari gambar berikutnya untuk dijadikan active
+            if (imageDiv && imageDiv.nextElementSibling) {
+                imageDivActive = imageDiv.nextElementSibling;
+            } else if (imageDivNew && imageDivNew.nextElementSibling) {
+                imageDivActive = imageDivNew.nextElementSibling;
+            } else {
+                // Jika tidak ada next sibling, coba cari gambar sebelumnya
+                if (imageDiv && imageDiv.previousElementSibling) {
+                    imageDivActive = imageDiv.previousElementSibling;
+                } else if (imageDivNew && imageDivNew.previousElementSibling) {
+                    imageDivActive = imageDivNew.previousElementSibling;
+                }
+            }
+
+            // Hapus elemen gambar
+            if (imageDiv) {
+                imageDiv.remove();
+            }
+            if (imageDivNew) {
+                imageDivNew.remove();
+            }
+
+            // Jadikan gambar berikutnya aktif jika ada
+            if (imageDivActive) {
+                imageDivActive.classList.add('active');
+            }
+
+            let input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "delete_images[]";
+            input.value = imageId;
+            hiddenInputContainer.appendChild(input);
+
+            // Jika gambar baru dihapus, kosongkan input file
+            const fileInput = document.getElementById("newImages");
+            if (fileInput) {
+                let dataTransfer = new DataTransfer();
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    let file = fileInput.files[i];
+                    if (imageId !== `new-image-${i + 1}`) { // Pastikan hanya file yang tidak dihapus tetap ada
+                        dataTransfer.items.add(file);
+                    }
+                }
+                fileInput.files = dataTransfer.files;
+            }
+        }
+
+
+//! Start EditMember
 async function EditMemberImg(member) {
 
     let response = await fetch(`/member-img-info/${member.member_id}`);
@@ -239,27 +333,27 @@ async function EditMemberImg(member) {
                 <h5 class="modal-title" id="exampleModalLabel">Detail Member</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/members-update-admin/${member.member_id}" method="post" enctype="multipart/form-data">
+            <form action="/member-update/${member.member_id}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                 <input type="hidden" name="_method" value="PUT">
+                <div id="deletedImagesContainer"></div>
             <div class="modal-body d-flex">
                 <div class="container col-4">
                     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                         <div id="imageCarousel${member.member_id}" class="carousel slide">
-                            <div class="carousel-inner">
+                            <div class="carousel-inner" id="carousel-inner">
                                 ${memberPicture.map((picture, index) => `
-                                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                    <div class="carousel-item ${index === 0 ? 'active' : ''}" id="image-${ picture.member_picture_id }">
                                         <img src="${window.location.origin}/img/member/${picture.member_picture}"
                                             class="d-block object-fit-cover w-100"
                                             alt="Slide ${index + 1}">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <button type="button" onclick="removeIMG('${picture.member_picture_id}')"
+                                                    class="btn btn-danger">
+                                                    Hapus Gambar
+                                                </button>
+                                            </div>
                                     </div>
-                                `).join('')}
-                            </div>
-                            <div class="carousel-indicators">
-                                ${memberPicture.map((_, index) => `
-                                    <button type="button" data-bs-target="#imageCarousel${member.member_id}" 
-                                        data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" 
-                                        aria-label="Slide ${index + 1}"></button>
                                 `).join('')}
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel${member.member_id}" data-bs-slide="prev">
@@ -272,73 +366,74 @@ async function EditMemberImg(member) {
                             </button>
                         </div>
                     </div>
-                    <input type="file" class="text-center form-control mt-3" id="imageInput" name="memberImage[]" multiple required>
+                    <input type="file" class="text-center form-control mt-3" id="newImages" name="new_images[]" multiple onchange="previewImages(event)">
                 </div>
 
                 <div class="container">
                     <div class="d-flex">
                         <div class="col-7">
                             <label for="fullname" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullname" value="${member.full_name}" required>
+                            <input type="text" class="form-control" name="fullname" id="fullname" value="${member.full_name}" required>
                         </div>
                         <div class="container">
                             <label for="nim" class="form-label">NIM</label>
-                            <input type="number" class="form-control" id="nim" value="${member.nim}" required>
+                            <input type="number" class="form-control" name="nim" id="nim" value="${member.nim}" required>
                         </div>
                     </div>
                     <div class="mt-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea id="description" class="form-control" rows="5">${member.description}</textarea>
+                        <textarea id="description" class="form-control" name="description" rows="5">${member.description}</textarea>
                     </div>
                     <div class="mt-3">
                         <label for="Quote" class="form-label">Quote</label>
-                        <textarea id="Quote" class="form-control" rows="3" required>${member.quote}</textarea>
+                        <textarea id="Quote" class="form-control" rows="3" required name="quote">${member.quote}</textarea>
                     </div>
                     <div class="mt-3 d-flex justify-content-between grid gap-3">
                         <div class="row col-8">
                             <div class="col">
                                 <label for="Rarity" class="form-label">Rarity</label>
-                                <select id="Rarity" class="form-select">
-                                    <option value="SSR">SSR</option>
-                                    <option value="SR">SR</option>
-                                    <option value="R">R</option>
-                                    <option value="N">N</option>
+                                <select id="Rarity" class="form-select" name="rarity">
+                                    <option value="" ${member.rarity ?? 'selected'  }>-Kosong-</option>
+                                    <option value="SSR" ${member.rarity=='SSR' ? 'selected' : ''  }>SSR</option>
+                                    <option value="SR" ${member.rarity=='SR' ? 'selected' : ''  }>SR</option>
+                                    <option value="R" ${member.rarity=='R' ? 'selected' : ''  }>R</option>
+                                    <option value="N" ${member.rarity=='N' ? 'selected' : ''  }>N</option>
                                 </select>
                             </div>
                             <div class="col">
                                 <label for="Rank" class="form-label">Rank</label>
-                                <input type="text" class="form-control" id="Rank" value="${member.rank}">
+                                <input type="text" class="form-control" id="Rank" name="rank" value="${member.rank || ''}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="YearIn" class="form-label">Year In</label>
-                                <input type="number" class="form-control" id="YearIn" value="${member.year_in}" readonly>
+                                <input type="number" class="form-control" id="YearIn" name="yearin" value="${member.year_in}" readonly>
                             </div>
                             <div class="col">
                                 <label for="YearOut" class="form-label">Year Out</label>
-                                <input type="number" class="form-control" id="YearOut" value="${member.year_out}">
+                                <input type="number" class="form-control" id="YearOut" name="yearout" value="${member.year_out || ''}">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="instagram" class="form-label">Instagram</label>
-                            <input type="text" class="form-control" id="instagram" value="${member.instagram}">
+                            <input type="text" class="form-control" name="instagram" id="instagram" value="${member.instagram || ''}">
                         </div>
                         <div class="col">
                             <label for="Github" class="form-label">Github</label>
-                            <input type="text" class="form-control" id="Github" value="${member.github}">
+                            <input type="text" class="form-control" id="Github" name="github" value="${member.github || ''}">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <label for="LinkedID" class="form-label">LinkedID</label>
-                            <input type="text" class="form-control" id="LinkedID" value="${member.linkedid}">
+                            <input type="text" class="form-control" id="LinkedID" name="linkedid" value="${member.linkedid || ''}">
                         </div>
                         <div class="col">
                             <label for="Website" class="form-label">Website</label>
-                            <input type="text" class="form-control" id="Website" value="${member.website}">
+                            <input type="text" class="form-control" id="Website" name="website" value="${member.website || ''}">
                         </div>
                     </div>
                 </div>

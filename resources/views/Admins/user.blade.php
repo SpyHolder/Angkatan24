@@ -48,7 +48,7 @@
                                                         </form>
                                                         <button class="btn btn-sm btn-warning rounded m-1"
                                                             type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#exampleModal">
+                                                            data-bs-target="#exampleModal{{ $data->login_id }}">
                                                             <span class="btn-label"><i class="fa fa-edit"></i></span>
                                                             Edit
                                                         </button>
@@ -56,7 +56,7 @@
                                                 </td>
                                             </tr>
                                             {{-- Modal --}}
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            <div class="modal fade" id="exampleModal{{ $data->login_id }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">

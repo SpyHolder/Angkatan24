@@ -42,11 +42,19 @@
                         </a>
                     </li>
                 @endif
-                @if(Auth::user()->isMember())
+                @if(Auth::user()->isMember()||Auth::user()->isPublisher())
                     <li class="nav-item {{ request()->is('member-add-member')||request()->is('member-add') ? 'active' : '' }}">
                         <a href="/member-add-member" class="collapsed" aria-expanded="false">
                             <i class="fas fa-users"></i>
                             <p>Members</p>
+                        </a>
+                    </li>
+                @endif
+                @if(Auth::user()->ispublisher())
+                    <li class="nav-item {{ Route::is('news-index-publisher') ? 'active' : '' }}">
+                        <a href="/news-home-publisher" class="collapsed" aria-expanded="false">
+                            <i class="fas fa-envelope"></i>
+                            <p>News</p>
                         </a>
                     </li>
                 @endif

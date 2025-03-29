@@ -26,19 +26,14 @@ Route::middleware(['auth', 'authRole:admin'])->group(function () {
     Route::get('/user-home-admin', [HomeController::class, 'userAdmin'])->name('user-index-admin');
 
     Route::get('/member-add-admin', [MemberController::class, 'addMemberAdmin'])->name('member-add-admin');
-    Route::get('/news-add-admin', [NewsController::class, 'addNewsAdmin'])->name('news-add-admin');
     Route::get('/user-add-admin', [HomeController::class, 'addUserAdmin'])->name('user-add-admin');
     
-    Route::post('/news-store-admin', [NewsController::class, 'storeNewsAdmin'])->name('news-store-admin');
     Route::post('/member-store-admin', [MemberController::class, 'storeMemberAdmin'])->name('member-store-admin');
     
     Route::delete('/user-destroy-admin/{id}', [HomeController::class, 'destroyUserAdmin'])->name('user-destroy-admin');
     
-    Route::put('/news-update-admin/{id}', [NewsController::class, 'updateNewsAdmin'])->name('news-update-admin');
-    Route::delete('/news-destroy-admin/{id}', [NewsController::class, 'destroyNewsAdmin'])->name('news-destroy-admin');
     Route::put('/news-konfirmasi-admin/{id}', [NewsController::class, 'konfirmasiNewsAdmin'])->name('news-konfirmasi-admin');
     
-    Route::put('/member-update-admin/{id}', [MemberController::class, 'updateMemberAdmin'])->name('member-update-admin');
     Route::delete('/member-destroy-admin/{id}', [MemberController::class, 'destroyMemberAdmin'])->name('member-destroy-admin');
     Route::put('/member-konfirmasi-admin/{id}', [MemberController::class, 'konfirmasiMemberAdmin'])->name('member-konfirmasi-admin');
     Route::put('/user-edit-admin/{id}', [HomeController::class, 'editUserAdmin'])->name('user-edit-admin');
@@ -48,7 +43,7 @@ Route::get('/login-info/{id}', [NewsController::class, 'loginInfo'])->name('logi
 Route::get('/member-img-info/{id}', [MemberController::class, 'memberImg'])->name('member-img-info');
 
 //! Route khusus member
-Route::middleware(['auth', 'authRole:member,admin'])->group(function () {
+Route::middleware(['auth', 'authRole:member,admin,publisher'])->group(function () {
     Route::get('/member-add-member', [MemberController::class, 'memberAddMembers'])->name('member-add-member');
     Route::post('/member-store', [MemberController::class, 'storeMember'])->name('member-store');
     Route::put('/member-update/{id}', [MemberController::class, 'updateMember'])->name('member-update');
@@ -56,5 +51,11 @@ Route::middleware(['auth', 'authRole:member,admin'])->group(function () {
 
 // Route khusus publisher
 Route::middleware(['auth', 'authRole:publisher'])->group(function () {
-    
+    Route::get('/news-home-publisher', [NewsController::class, 'newsPublisher'])->name('news-index-publisher');
+});
+Route::middleware(['auth', 'authRole:publisher,admin'])->group(function () {
+    Route::get('/news-add-admin', [NewsController::class, 'addNewsAdmin'])->name('news-add-admin');
+    Route::post('/news-store-admin', [NewsController::class, 'storeNewsAdmin'])->name('news-store-admin');
+    Route::put('/news-update-admin/{id}', [NewsController::class, 'updateNewsAdmin'])->name('news-update-admin');
+    Route::delete('/news-destroy-admin/{id}', [NewsController::class, 'destroyNewsAdmin'])->name('news-destroy-admin');
 });

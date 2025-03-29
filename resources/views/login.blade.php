@@ -45,16 +45,24 @@
             @csrf
             <h3 class=" fw-normal text-center">Login</h3>
             <!-- email-->
-            <input type="email" class="form-control mb-3" id="email" placeholder="E-mail" name="email" required>
-            <div class="input-group mb-1">
-                </div>
+            <div class="mb-4">
+                <input type="email" class="form-control" id="email" placeholder="E-mail" name="email" required>
+                @error('email')
+                    <p class="text-danger ms-2" style="font-size: 12px">*{{ $message }}</p>
+                @enderror
+            </div>
             <!-- email end-->
             <!-- Password-->
-            <div class="input-group mb-3    ">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                <span class="input-group-text" onclick="togglePassword('password', 'eyeIcon1')">
-                    <i id="eyeIcon1" class="bi bi-eye"></i>
-                </span>
+            <div class="mb-3">
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <span class="input-group-text" onclick="togglePassword('password', 'eyeIcon1')">
+                        <i id="eyeIcon1" class="bi bi-eye"></i>
+                    </span>
+                </div>
+                 @error('password')
+                    <p class="text-danger ms-2" style="font-size: 12px">*{{ $message }}</p>
+                @enderror
             </div>
             <!-- Password end-->
             <!-- Button-->

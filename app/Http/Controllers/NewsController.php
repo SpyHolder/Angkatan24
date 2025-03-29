@@ -7,6 +7,7 @@ use App\Models\News;
 use App\Models\Login;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {
@@ -26,9 +27,9 @@ class NewsController extends Controller
     public function newsPublisher()
     {
         $loginNews = News::with('login')->where('login_id',session('sessionID'))->get();
-        return view('Admins.news', [
-            'loginNews' => $loginNews,
-            'title' => 'User News'
+        return view('Publisher.newsPublisher', [
+            'newsPublisher' => $loginNews,
+            'title' => 'Publisher News'
         ]);
     }
 
@@ -84,11 +85,18 @@ class NewsController extends Controller
             'picture_news' => $imageName,
         ]);
 
+        $routeRole = '';
+        if (Auth::user()->isAdmin()) {
+            $routeRole = 'news-index-admin';
+        } else {
+            $routeRole = 'news-index-publisher';
+        }
+
         // Validasi jika berhasil memasukkan data ke database
         if ($berita) {
-            return redirect()->route('news-index-admin')->with('sukses', 'Berita berhasil ditambahkan');
+            return redirect()->route($routeRole)->with('sukses', 'Berita berhasil ditambahkan');
         } else {
-            return redirect()->route('news-index-admin')->with('gagal', 'Berita gagal ditambahkan');
+            return redirect()->route($routeRole)->with('gagal', 'Berita gagal ditambahkan');
         }
     }
 
@@ -144,7 +152,13 @@ class NewsController extends Controller
             ]);
         }
 
-        return redirect()->route('news-index-admin')->with('sukses', 'Berita berhasil diubah');
+        $routeRole = '';
+        if (Auth::user()->isAdmin()) {
+            $routeRole = 'news-index-admin';
+        } else {
+            $routeRole = 'news-index-publisher';
+        }
+        return redirect()->route($routeRole)->with('sukses', 'Berita berhasil diubah');
     
     }
 

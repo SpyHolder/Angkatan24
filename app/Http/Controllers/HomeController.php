@@ -55,6 +55,16 @@ class HomeController extends Controller
         
         $credentials = $req->only('email', 'password');
 
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Email salah.',
+            ]);
+        } else if (!Hash::check($validasi['password'], $user->password)) {
+            return back()->withErrors([
+                'password' => 'Password salah.',
+            ]);
+        }
+
         if (Auth::attempt($credentials)) {
 
             // Regenerasi session untuk keamanan
@@ -65,6 +75,8 @@ class HomeController extends Controller
                 return redirect()->route('member-index-admin');
             } else if ($user->isMember()) {
                 return redirect()->route('member-add-member');
+            } else if($user->isPublisher()){
+                return redirect()->route('news-index-publisher');
             }
         }
 

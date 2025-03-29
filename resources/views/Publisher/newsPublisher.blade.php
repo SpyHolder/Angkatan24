@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
 
-                            <a href="/news-add" class="btn btn-primary rounded">
+                            <a href="/news-add-admin" class="btn btn-primary rounded">
                                 <span class="btn-label"><i class="fa fa-plus"></i></span>
                                 Add New News
                             </a>
@@ -31,7 +31,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($loginNews as $berita)
+                                        @foreach ($newsPublisher as $berita)
                                         <tr>
                                             <td class="col-5 text-truncate" style="max-width: 150px;">{{ $berita->headline_news }}</td>
                                             <td>{{ $berita->login->username }}</td>
@@ -46,7 +46,7 @@
                                             </td>
                                             <td class="col-5">
                                                 <div class="d-flex justify-content-center">
-                                                    <form id="destroy" action="{{ route('news-destroy',$berita->news_id) }}" method="post" enctype="multipart/form-data">
+                                                    <form id="destroy" action="{{ route('news-destroy-admin',$berita->news_id) }}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger m-1 rounded show_delete" data-toggle="tooltip" type="submit">
@@ -58,14 +58,6 @@
                                                         <span class="btn-label"><i class="fa fa-edit"></i></span>
                                                         Edit
                                                     </button>
-                                                    <form action="{{ route('news-konfirmasi',$berita->news_id) }}" method="post"enctype="multipart/form-data" >
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button class="btn btn-sm btn-success m-1 rounded show_confirm" type="submit" data-toggle="tooltip" {{ $berita->status == 1 ? 'hidden' : '' }}>
-                                                            <span class="btn-label"><i class="fa fa-check"></i></span>
-                                                            Konfirmasi
-                                                        </button>
-                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

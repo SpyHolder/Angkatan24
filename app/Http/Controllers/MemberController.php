@@ -37,11 +37,12 @@ class MemberController extends Controller
     //! Hak Member
     public function memberAddMembers(){
 
-        $dataLogin = Member::where('login_id',session('sessionID'))->first();
+        $dataLogin = Member::with('relasiMany')->where('login_id',session('sessionID'))->first();
+        // dd($dataLogin);
         return view('Members.addmember',compact('dataLogin'),['title'=>'User Members']);
     }
 
-    //! Hak Admin & Member
+    //! Hak Admin, Member, & Publisher
     public function storeMember(Request $request){
         $validasi = $request->validate([
             'fullname' => 'required',
@@ -84,7 +85,7 @@ class MemberController extends Controller
 
         if ($inputAnggota) {
             if (Auth::user()->isAdmin()) {
-                return redirect()->route('member-index')->with('sukses', 'Berhasil menambah member');
+                return redirect()->route('member-index-admin')->with('sukses', 'Berhasil menambah member');
             } else {
                 return redirect()->route('member-add-member')->with('sukses', 'Berhasil menambah member');
             }
@@ -132,7 +133,64 @@ class MemberController extends Controller
         }
     }
 
-    public function updateMemberAdmin(Request $req,$id){
+    public function updateMember(Request $req,$id){
 
+        $validasi = $req->validate([
+            'fullname' => 'required',
+            'nim' => 'required',
+            'description' => 'required',
+            'quote' => 'required',
+            'yearin' => 'required',
+        ]);
+        $dataAnggota = array_filter([
+            'full_name' => $validasi['fullname'],
+            'nim' => $validasi['nim'],
+            'description' => $validasi['description'],
+            'quote' => $validasi['quote'],
+            'year_in' => $validasi['yearin'],
+            'year_out' => $req->yearout,
+            'rarity' => $req->rarity,
+            'rank' => $req->rank,
+            'instagram' => $req->instagram,
+            'github' => $req->github,
+            'linkedid' => $req->linkedid,
+            'website' => $req->website,
+        ], fn($value) => !empty($value));
+
+        
+        
+        $item = Member::findOrFail($id);
+
+        // **1. Hapus Gambar yang Dipilih**
+        if ($req->has('delete_images')) {
+            foreach ($req->delete_images as $imageId) {
+                $image = MemberPicture::find($imageId);
+                if ($image) {
+                    if (File::exists(public_path('img/member/' . $image->member_picture))) {
+                        unlink(public_path('img/member/' . $image->member_picture));
+                    }
+                    $image->delete();
+                }
+            }
+        }
+
+        // **2. Upload Gambar Baru**
+        // dd($req->hasFile('new_images'));
+        if ($req->hasFile('new_images')) {
+            foreach ($req->file('new_images') as $file) {
+
+                $fotoName = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('img/member'), $fotoName);
+
+                // Simpan ke database
+                MemberPicture::create([
+                    'member_id' => $item->member_id,
+                    'member_picture' => $fotoName,
+                ]);
+            }
+        }
+        $item->update($dataAnggota);
+
+        return redirect()->back()->with('sukses', 'Member berhasil diperbarui.');
     }
 }

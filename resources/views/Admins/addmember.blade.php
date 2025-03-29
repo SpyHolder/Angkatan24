@@ -63,6 +63,7 @@
                                             <div class="col">
                                                 <label for="Rarity" class="form-label">Rarity</label>
                                                 <select name="rarity" id="Rarity" class="form-select">
+                                                    <option value="">-Kosong-</option>
                                                     <option value="SSR">SSR</option>
                                                     <option value="SR">SR</option>
                                                     <option value="R">R</option>
