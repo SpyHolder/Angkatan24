@@ -50,8 +50,8 @@ class MemberController extends Controller
             'description' => 'required',
             'quote' => 'required',
             'yearin' => 'required',
-            'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,svg',
+            'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,svg',
         ]);
 
         $dataAnggota = array_filter([
@@ -141,6 +141,7 @@ class MemberController extends Controller
             'description' => 'required',
             'quote' => 'required',
             'yearin' => 'required',
+            'new_images.*' => 'image|mimes:jpeg,png,jpg,svg',
         ]);
         $dataAnggota = array_filter([
             'full_name' => $validasi['fullname'],

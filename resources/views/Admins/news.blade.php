@@ -46,10 +46,10 @@
                                             </td>
                                             <td class="col-5">
                                                 <div class="d-flex justify-content-center">
-                                                    <form id="destroy" action="{{ route('news-destroy-admin',$berita->news_id) }}" method="post" enctype="multipart/form-data">
+                                                    <form id="btn-submit" action="{{ route('news-destroy-admin',$berita->news_id) }}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-sm btn-danger m-1 rounded show_delete" data-toggle="tooltip" type="submit">
+                                                        <button class="btn btn-sm btn-danger m-1 rounded show_delete" data-toggle="tooltip" type="submit" >
                                                             <span class="btn-label"><i class="fa fa-trash"></i></span>
                                                             Hapus
                                                         </button>
@@ -61,7 +61,7 @@
                                                     <form action="{{ route('news-konfirmasi-admin',$berita->news_id) }}" method="post"enctype="multipart/form-data" >
                                                         @csrf
                                                         @method('PUT')
-                                                        <button class="btn btn-sm btn-success m-1 rounded show_confirm" type="submit" data-toggle="tooltip" {{ $berita->status == 1 ? 'hidden' : '' }}>
+                                                        <button class="btn btn-sm btn-success m-1 rounded show_confirm" type="submit" id="btn-sumbit" data-toggle="tooltip" {{ $berita->status == 1 ? 'hidden' : '' }}>
                                                             <span class="btn-label"><i class="fa fa-check"></i></span>
                                                             Konfirmasi
                                                         </button>
@@ -80,5 +80,5 @@
         </div>
     </div>
     <div id="NewsModal"></div>
-
+<x-User-Footer></x-User-Footer>
 </x-User-Layout>

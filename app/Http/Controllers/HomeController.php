@@ -18,7 +18,7 @@ class HomeController extends Controller
 //! Start Hak Akses All Role
     public function news()
     {
-        $data = News::with('login')->get();
+        $data = News::with('login')->orderBy('created_at','desc')->get();
         return view('Main.news',compact('data'),[
             'title' => 'News'
         ]);
@@ -30,7 +30,18 @@ class HomeController extends Controller
     }
     public function members()
     {
-        $datas = Member::with('relasiMany')->get();
+        $datas = Member::with('relasiMany')
+            ->orderByRaw("
+            CASE 
+            WHEN members.rank is null THEN 6
+            WHEN members.rank = 'Ketua Angkatan' THEN 1
+            WHEN members.rank = 'Wakil Ketua Angkatan' THEN 2
+            WHEN members.rank = 'Bendahara' THEN 3
+            WHEN members.rank = 'Seketaris' THEN 4
+            ELSE 5
+        END
+    ")->get();
+
         return view('Main.members',[
             'title' => 'Members',
             'datas'=>$datas,
@@ -80,7 +91,7 @@ class HomeController extends Controller
             }
         }
 
-            return redirect('/login');
+            return redirect('/regis');
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',

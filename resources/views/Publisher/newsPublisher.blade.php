@@ -49,7 +49,7 @@
                                                     <form id="destroy" action="{{ route('news-destroy-admin',$berita->news_id) }}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-sm btn-danger m-1 rounded show_delete" data-toggle="tooltip" type="submit">
+                                                        <button class="btn btn-sm btn-danger m-1 rounded show_delete" data-toggle="tooltip" type="submit" id="btn-submit">
                                                             <span class="btn-label"><i class="fa fa-trash"></i></span>
                                                             Hapus
                                                         </button>
@@ -72,5 +72,5 @@
         </div>
     </div>
     <div id="NewsModal"></div>
-
+<x-User-Footer></x-User-Footer>
 </x-User-Layout>

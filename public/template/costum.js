@@ -5,6 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
     //! Akhir Modal
 });
 
+document.getElementById("btn-submit").addEventListener("submit", function (event) {
+    // Tampilkan loading saat form dikirim
+    event.preventDefault();
+    document.getElementById("loading").classList.remove("visually-hidden");
+    setTimeout(() => {
+        // document.getElementById("loading").classList.add("visually-hidden");
+        event.target.submit();
+    }, 3000);
+});
+
 //! IDK Part 2
 WebFont.load({
             google: {
@@ -56,6 +66,25 @@ $('.show_delete').click(function(event) {
     });
 });
 //!  End Delete SweetAllert
+
+//!  Start Logout SweetAllert
+$('.show_logout').click(function(event) {
+    event.preventDefault();  // Menghentikan aksi default (misalnya pengiriman form)
+
+    Swal.fire({
+        title: "Yakin mau Logout?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Logout"
+    }).then((result) => {
+        if (result.isConfirmed) {
+        $(this).closest('form')[0].submit();
+        }
+    });
+});
+//!  End Logout SweetAllert
 
 //! Start Validasi sukses
 const suksesElement = document.getElementById('validasi-sukses');
@@ -139,7 +168,7 @@ async function EditNews(dataNews){
                 <h5 class="modal-title" id="exampleModalLabel">Edit News</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/news-update-admin/${dataNews.news_id}" method="post" enctype="multipart/form-data">
+            <form action="/news-update-admin/${dataNews.news_id}" method="post" enctype="multipart/form-data" id="btn-submit">
                 <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="oldThumbnail" value="${dataNews.picture_news}">
@@ -149,7 +178,7 @@ async function EditNews(dataNews){
                         <div class="mt-2 text-center">
                             <p class="h3">Thumbnail Berita</p>
                             <img id="imageDisplay${dataNews.news_id}" src="img/news/${dataNews.picture_news}" class="img-fluid rounded-3 mb-1">
-                            <input type="file" class="form-control w-50 mx-auto" id="imageInput${dataNews.news_id}" accept="image/*" name="thumbnail">
+                            <input type="file" class="form-control w-50 mx-auto" id="imageInput${dataNews.news_id}" accept=".jpg,.jpeg,.png,.svg" name="thumbnail">
                         </div>
                         <div class="mt-2">
                             <label for="judul" class="form-label">Judul Berita</label>
@@ -333,7 +362,7 @@ async function EditMemberImg(member) {
                 <h5 class="modal-title" id="exampleModalLabel">Detail Member</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/member-update/${member.member_id}" method="post" enctype="multipart/form-data">
+            <form action="/member-update/${member.member_id}" method="post" enctype="multipart/form-data"  id="btn-submit">
                 <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                 <input type="hidden" name="_method" value="PUT">
                 <div id="deletedImagesContainer"></div>
@@ -366,7 +395,7 @@ async function EditMemberImg(member) {
                             </button>
                         </div>
                     </div>
-                    <input type="file" class="text-center form-control mt-3" id="newImages" name="new_images[]" multiple onchange="previewImages(event)">
+                    <input type="file" class="text-center form-control mt-3" id="newImages" name="new_images[]" multiple onchange="previewImages(event)" accept=".jpg,.jpeg,.png,.svg">
                 </div>
 
                 <div class="container">
@@ -377,7 +406,7 @@ async function EditMemberImg(member) {
                         </div>
                         <div class="container">
                             <label for="nim" class="form-label">NIM</label>
-                            <input type="number" class="form-control" name="nim" id="nim" value="${member.nim}" required>
+                            <input type="number" class="form-control" name="nim" id="nim" value="${member.nim}" required max="9999999999">
                         </div>
                     </div>
                     <div class="mt-3">
@@ -402,7 +431,14 @@ async function EditMemberImg(member) {
                             </div>
                             <div class="col">
                                 <label for="Rank" class="form-label">Rank</label>
-                                <input type="text" class="form-control" id="Rank" name="rank" value="${member.rank || ''}">
+                                
+                                <select id="Rank" class="form-select" name="rank">
+                                    <option value="" ${member.rank ?? 'selected'  }>-Kosong-</option>
+                                    <option value="Ketua Angkatan" ${member.rank=='Ketua Angkatan' ? 'selected' : ''  }>Ketua Angkatan</option>
+                                    <option value="Wakil Ketua Angkatan" ${member.rank=='Wakil Ketua Angkatan' ? 'selected' : ''  }>Wakil Ketua Angkatan</option>
+                                    <option value="Bendahara" ${member.rank=='Bendahara' ? 'selected' : ''  }>Bendahara</option>
+                                    <option value="Seketaris" ${member.rank=='Seketaris' ? 'selected' : ''  }>Seketaris</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">

@@ -11,7 +11,7 @@
         @if($firstNews->status === 1) 
         {{-- Content --}}
         <a href="{{ route('detail-news', $firstNews->news_id) }}" class="group ">
-            <div class="w-full md:px-0 md:w-[700px] animate-fade-right animate-duration-1000 animate-delay-[600ms]">
+            <div class="w-full md:px-0 md:w-[800px] animate-fade-right animate-duration-1000 animate-delay-[600ms]">
                 <div class="px-2">
                     <div class="overflow-hidden rounded-2xl">
                         <img src="{{ asset('img/news/' . $firstNews->picture_news) }}" alt="Berita Eksklusif"
@@ -47,7 +47,7 @@
             {{-- Search Input --}}
             <form class="w-full md:w-96 md:px-5 mt-7 md:mt-0">
                 <div class="relative">
-                    <input type="search" id="search"
+                    <input type="search" id="search" onkeyup="searchMember()"
                         class="block w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-black focus:border-black"
                         placeholder="Search..." required />
                     <button type="submit"
@@ -62,13 +62,13 @@
             </form>
         </div>
 
-        <div class="grid grid-cols-4 w-full mt-5 md:mt-0">
-            <div class="md:p-5 sm:p-8 col-span-4 md:col-span-3">
+        <div class="grid grid-cols-6 w-full mt-5 md:mt-0">
+            <div class="md:p-5 sm:p-8 col-span-4 md:col-span-4">
                 <div class="columns-1 md:columns-3 gap-2 md:gap-4 space-y-4" id="grid-container">
                     @foreach ($data as $news)
                         @if ($news->status==1)    
                             {{-- Card Grid --}}
-                            <div class="break-inside-avoid bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700 overflow-hidden group flex md:block"
+                            <div class="break-inside-avoid bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700 overflow-hidden group flex md:block grid-item"
                                 id="grid-item">
                                 <a href="{{ route('detail-news', $news->news_id) }}" class="">
                                     <div class=" overflow-hidden w-36 md:w-full">
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="p-2 md:p-3">
                                         <h5
-                                            class="mb-2 text-sm md:text-xl font-bold line-clamp-3 md:line-clamp-none tracking-tight text-gray-900 dark:text-black group-hover:underline">
+                                            class="mb-2 text-sm md:text-xl font-bold line-clamp-3 md:line-clamp-none tracking-tight text-gray-900 dark:text-black group-hover:underline member-name">
                                             {{ $news->headline_news }}
                                         </h5>
                                         <a href="{{ route('detail-news', $news->news_id) }}"
@@ -99,7 +99,7 @@
             </div>
 
             {{-- Iklan --}}
-            <div class="hidden md:block p-5 sm:p-8 animate-fade-left animate-duration-1000">
+            <div class="hidden md:block p-5 sm:p-8 animate-fade-left animate-duration-1000 col-span-2">
                 <img src="https://placehold.co/600x1000" alt="" class="rounded-xl object-cover">
             </div>
         </div>
@@ -116,5 +116,12 @@
                     }, index * 200); // Delay tiap item 200ms
                 });
             });
+            function searchMember() {
+            const query = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('.grid-item').forEach(item => {
+                const name = item.querySelector('.member-name').innerText.toLowerCase();
+                item.style.display = name.includes(query) ? "block" : "none";
+            });
+        }
         </script>
 </x-main-layout>

@@ -11,7 +11,7 @@
 
                             <form action="{{ route('news-store-admin') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <button class="btn btn-primary rounded">
+                                <button class="btn btn-primary rounded" id="btn-submit">
                                     <span class="btn-label"><i class="fa fa-save"></i></span>
                                     Save
                                 </button>
@@ -24,7 +24,7 @@
                                     <img id="imageDisplay" src="https://placehold.co/700x400"
                                         class="img-fluid rounded-3 mb-1">
                                     <input type="file" class="form-control w-50 mx-auto" id="imageInput"
-                                        accept="image/*" name='thumbnail' accept=".jpeg,.png,.jpg,.gif,.svg" required>
+                                        accept=".jpg,.jpeg,.png,.svg" name='thumbnail' accept=".jpeg,.png,.jpg,.gif,.svg" required>
                                 </div>
                                 <div class="mt-2">
                                     <label for="headline" class="form-label">Judul Berita</label>

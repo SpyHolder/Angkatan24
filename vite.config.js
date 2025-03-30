@@ -15,7 +15,7 @@ export default defineConfig({
     },
     // server: {
     //     hmr: {
-    //         host: 'https://4474-103-124-196-126.ngrok-free.app',
+    //         host: 'https://abe4-103-124-196-126.ngrok-free.app',
     //         protocol: 'wss',
     //         clientPort: 4040,
     //     },

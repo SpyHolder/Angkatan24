@@ -56,7 +56,7 @@
             <!-- Nama -->
             <div>
                 <input type="text" class="form-control" id="nama" placeholder="Username"
-                    name="username"equired>
+                    name="username"equired autofocus>
                 @error('username')
                     <p class="text-danger mb-2 ms-2" style="font-size: 12px">*{{ $message }}</p>
                 @enderror

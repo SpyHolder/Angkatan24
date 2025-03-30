@@ -3,7 +3,7 @@
 
     <div class="text-center mt-8 px-14 md:px-80 w-full">
         <div class="border-b-2 border-gray-500">
-            <input type="text" class="border-none text-center focus:placeholder-transparent opacity-50"
+            <input type="text" id="search" onkeyup="searchMember()" class="border-none text-center focus:placeholder-transparent opacity-50"
                 placeholder="Search Someone?">
         </div>
     </div>
@@ -15,7 +15,7 @@
                 @foreach ($datas as $data)
                     @if ($data->status == 1)
                         <!-- Card -->
-                        <div class="relative w-full md:w-72 bg-white rounded-lg shadow-lg overflow-hidden break-inside-avoid mx-auto cursor-pointer hover:shadow-xl transition-shadow hidden"
+                        <div class="relative w-full md:w-72 bg-white rounded-lg shadow-lg overflow-hidden break-inside-avoid mx-auto cursor-pointer hover:shadow-xl transition-shadow grid-item"
                             id="grid-item"
                             onclick="showMemberModal('modalMember{{ $data->member_id }}', 'modalContent{{ $data->member_id }}', '{{ $data->member_id }}')">
 
@@ -52,7 +52,7 @@
 
                             <!-- Member Info -->
                             <div class="p-4 text-center space-y-2">
-                                <h2 class="text-lg font-bold text-gray-900">{{ $data->full_name }}</h2>
+                                <h2 class="text-lg font-bold text-gray-900 member-name">{{ $data->full_name }}</h2>
                                 <p class="text-gray-600 text-sm">{{ $data->year_in }}
                                     {{ $data->year_out ? ' - ' . $data->year_out : '' }}</p>
                                 <blockquote class="text-sm text-gray-700 italic">
@@ -118,49 +118,52 @@
                                                     @endforeach
                                                 </div>
 
-                                                <!-- Slider indicators -->
-                                                <div
-                                                    class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-                                                    @foreach ($data->relasiMany as $key => $picture)
-                                                        <button type="button"
-                                                            class="w-3 h-3 rounded-full {{ $key == 0 ? 'bg-white' : 'bg-white/50' }}"
-                                                            aria-current="{{ $key == 0 ? 'true' : 'false' }}"
-                                                            aria-label="Slide {{ $key + 1 }}"
-                                                            data-carousel-indicator="{{ $key }}"></button>
-                                                    @endforeach
-                                                </div>
+                                                @if ($data->relasiMany->count() > 1)
+                                                    
+                                                    <!-- Slider indicators -->
+                                                    <div
+                                                        class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+                                                        @foreach ($data->relasiMany as $key => $picture)
+                                                            <button type="button"
+                                                                class="w-3 h-3 rounded-full {{ $key == 0 ? 'bg-white' : 'bg-white/50' }}"
+                                                                aria-current="{{ $key == 0 ? 'true' : 'false' }}"
+                                                                aria-label="Slide {{ $key + 1 }}"
+                                                                data-carousel-indicator="{{ $key }}"></button>
+                                                        @endforeach
+                                                    </div>
 
-                                                <!-- Slider controls -->
-                                                <button type="button"
-                                                    class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                                    data-carousel-prev>
-                                                    <span
-                                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white/70">
-                                                        <svg class="w-4 h-4 text-white rtl:rotate-180"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none" viewBox="0 0 6 10">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M5 1 1 5l4 4" />
-                                                        </svg>
-                                                        <span class="sr-only">Previous</span>
-                                                    </span>
-                                                </button>
-                                                <button type="button"
-                                                    class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                                    data-carousel-next>
-                                                    <span
-                                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white/70">
-                                                        <svg class="w-4 h-4 text-white rtl:rotate-180"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none" viewBox="0 0 6 10">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="m1 9 4-4-4-4" />
-                                                        </svg>
-                                                        <span class="sr-only">Next</span>
-                                                    </span>
-                                                </button>
+                                                    <!-- Slider controls -->
+                                                    <button type="button"
+                                                        class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                                        data-carousel-prev>
+                                                        <span
+                                                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white/70">
+                                                            <svg class="w-4 h-4 text-white rtl:rotate-180"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="none" viewBox="0 0 6 10">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M5 1 1 5l4 4" />
+                                                            </svg>
+                                                            <span class="sr-only">Previous</span>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button"
+                                                        class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                                        data-carousel-next>
+                                                        <span
+                                                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white/70">
+                                                            <svg class="w-4 h-4 text-white rtl:rotate-180"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="none" viewBox="0 0 6 10">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="m1 9 4-4-4-4" />
+                                                            </svg>
+                                                            <span class="sr-only">Next</span>
+                                                        </span>
+                                                    </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -251,6 +254,14 @@
                 }, index * 200);
             });
         });
+
+        function searchMember() {
+            const query = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('.grid-item').forEach(item => {
+                const name = item.querySelector('.member-name').innerText.toLowerCase();
+                item.style.display = name.includes(query) ? "block" : "none";
+            });
+        }
 
         // Fungsi Carousel Custom
         function initCarousel(carouselId) {

@@ -1,6 +1,5 @@
 <x-User-Layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-
     <div class="container">
         <div class="page-inner">
             <div class="row">
@@ -11,7 +10,7 @@
 
                             <form action="{{ route('member-store') }}" method="post"enctype="multipart/form-data">
                                 @csrf
-                                <button class="btn btn-primary rounded">
+                                <button class="btn btn-primary rounded" id="btn-sumbit">
                                     <span class="btn-label"><i class="fa fa-save"></i></span>
                                     Save
                                 </button>
@@ -34,7 +33,7 @@
                                         </div>
                                     </div>
                                     <input type="file" class="text-center form-control mt-3" id="imageInput"
-                                        name="memberImage[]" multiple required>
+                                        name="memberImage[]" multiple required accept=".jpg,.jpeg,.png,.svg">
                                 </div>
 
                                 <div class="container">
@@ -47,7 +46,7 @@
                                         <div class="container">
                                             <label for="nim" class="form-label">NIM</label>
                                             <input type="number" class="form-control" id="nim" name="nim"
-                                                required>
+                                                required max="9999999999">
                                         </div>
                                     </div>
                                     <div class="mt-3">
@@ -72,15 +71,20 @@
                                             </div>
                                             <div class="col">
                                                 <label for="Rank" class="form-label">Rank</label>
-                                                <input type="text" class="form-control" id="Rank"
-                                                    name="rank">
+                                                <select id="Rank" class="form-select" name="rank">
+                                                    <option value="">-Kosong-</option>
+                                                    <option value="Ketua Angkatan">Ketua Angkatan</option>
+                                                    <option value="Wakil Ketua Angkatan">Wakil Ketua Angkatan</option>
+                                                    <option value="Bendahara">Bendahara</option>
+                                                    <option value="Seketaris">Seketaris</option>
+                                                    </select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label for="YearIn" class="form-label">Year In</label>
-                                                <input value="2024" name="yearin" type="number"
-                                                    class="form-control" id="YearIn" readonly>
+                                                <input value="2024" name="yearin" type="number" class="form-control"
+                                                    id="YearIn" readonly>
                                             </div>
                                             <div class="col">
                                                 <label for="YearOut" class="form-label">Year Out</label>
@@ -124,5 +128,4 @@
         </div>
     </div>
     </div>
-
 </x-User-Layout>

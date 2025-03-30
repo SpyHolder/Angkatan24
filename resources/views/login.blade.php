@@ -46,7 +46,7 @@
             <h3 class=" fw-normal text-center">Login</h3>
             <!-- email-->
             <div class="mb-4">
-                <input type="email" class="form-control" id="email" placeholder="E-mail" name="email" required>
+                <input type="email" class="form-control" id="email" placeholder="E-mail" name="email" required autofocus>
                 @error('email')
                     <p class="text-danger ms-2" style="font-size: 12px">*{{ $message }}</p>
                 @enderror

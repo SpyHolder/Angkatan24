@@ -29,27 +29,10 @@
             <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
-                    <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
-                        aria-expanded="false">
-                        <span class="profile-username">
-                            <span class="op-7">Hi,</span>
-                            <span class="fw-bold">User</span>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user animated fadeIn "style="width: 50px;">
-                        <div class="dropdown-user-scroll scrollbar-outer">
-                            <li class="text-center">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <div class="dropdown-divider"></div>
-                                <div>
-                                    <form action="{{ route('logout') }}" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                        <button class="dropdown-item" type="submit">Logout</button>
-                                    </form>
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
+                    <form action="{{ route('logout') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <button class="nav-link dropdown-toggle text-black show_logout" data-toggle="tooltip" type="submit">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>

@@ -16,7 +16,7 @@
                                 @if (!empty($dataLogin))
                                     @method('PUT')
                                 @endif
-                                <button class="btn btn-primary rounded">
+                                <button class="btn btn-primary rounded" id="btn-submit">
                                     <span class="btn-label"><i class="fa fa-save"></i></span>
                                     Save
                                 </button>
@@ -68,8 +68,7 @@
                                         <input type="file" class="text-center form-control mt-3" id="imageInput"
                                             name="memberImage[]" multiple required>
                                     @else
-                                        <input type="file" id="newImages" class="text-center form-control mt-3" name="new_images[]" multiple
-                                            accept="image/*" onchange="previewImages(event)">
+                                        <input type="file" id="newImages" class="text-center form-control mt-3" name="new_images[]" multiple accept=".jpg,.jpeg,.png,.svg" onchange="previewImages(event)">
                                     @endif
                                 </div>
 
@@ -83,7 +82,7 @@
                                         <div class="container">
                                             <label for="nim" class="form-label">NIM</label>
                                             <input type="number" class="form-control" id="nim" name="nim"
-                                                required value="{{ $dataLogin->nim ?? '' }}">
+                                                required value="{{ $dataLogin->nim ?? '' }}" max="9999999999">
                                         </div>
                                     </div>
                                     <div class="mt-3">
@@ -103,7 +102,7 @@
                                         <div class="col">
                                             <label for="YearOut" class="form-label">Year Out</label>
                                             <input type="number" class="form-control" id="YearOut" name="yearout"
-                                                minlength="4" min="2023" placeholder="YYYY"
+                                                minlength="4" min="2023" max="2069" placeholder="YYYY"
                                                 value="{{ $dataLogin->year_out ?? '' }}">
                                         </div>
                                     </div>

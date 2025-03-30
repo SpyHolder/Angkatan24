@@ -3,10 +3,11 @@
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
             <a href="index.html" class="logo">
-                <img src="{{ asset('template/assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand" class="navbar-brand" height="20" />
+                <img src="{{ asset('template/image/diversiti.svg') }}" alt="navbar brand" class="navbar-brand me-4 bg-light rounded-circle p-1" height="50" />
+                <h1 class="navbar-brand text-light" height="20">DIVERSI-TI</h1>
             </a>
             <div class="nav-toggle">
-                <button class="btn btn-toggle toggle-sidebar">
+                <button class="btn btn-toggle toggle-sidebar ">
                     <i class="gg-menu-right"></i>
                 </button>
                 <button class="btn btn-toggle sidenav-toggler">
@@ -41,16 +42,20 @@
                             <p>User</p>
                         </a>
                     </li>
-                @endif
-                @if(Auth::user()->isMember()||Auth::user()->isPublisher())
-                    <li class="nav-item {{ request()->is('member-add-member')||request()->is('member-add') ? 'active' : '' }}">
-                        <a href="/member-add-member" class="collapsed" aria-expanded="false">
+                @elseif(Auth::user()->isMember())
+                    <li class="nav-item {{ Route::is('member-add-member') ? 'active' : '' }}">
+                        <a  href="/member-add-member" class="collapsed" aria-expanded="false">
                             <i class="fas fa-users"></i>
                             <p>Members</p>
                         </a>
                     </li>
-                @endif
-                @if(Auth::user()->ispublisher())
+                @elseif(Auth::user()->ispublisher())
+                    <li class="nav-item {{ Route::is('member-add-member') ? 'active' : '' }}">
+                        <a  href="/member-add-member" class="collapsed" aria-expanded="false">
+                            <i class="fas fa-users"></i>
+                            <p>Members</p>
+                        </a>
+                    </li>
                     <li class="nav-item {{ Route::is('news-index-publisher') ? 'active' : '' }}">
                         <a href="/news-home-publisher" class="collapsed" aria-expanded="false">
                             <i class="fas fa-envelope"></i>

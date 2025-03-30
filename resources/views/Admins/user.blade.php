@@ -40,7 +40,7 @@
                                                             @method('DELETE')
                                                             <button
                                                                 class="btn btn-sm btn-danger m-1 rounded show_delete"
-                                                                data-toggle="tooltip" type="submit">
+                                                                data-toggle="tooltip" type="submit" id="btn-submit">
                                                                 <span class="btn-label"><i
                                                                         class="fa fa-trash"></i></span>
                                                                 Hapus
@@ -95,7 +95,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary">Save
+                                                                <button type="submit" class="btn btn-primary" id="btn-submit">Save
                                                                     changes</button>
                                                             </div>
                                                         </form>
@@ -112,5 +112,5 @@
             </div>
         </div>
     </div>
-
+<x-User-Footer></x-User-Footer>
 </x-User-Layout>

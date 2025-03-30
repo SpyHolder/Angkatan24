@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ asset('template/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('template/image/diversiti.svg') }}" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="{{ asset('template/assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -26,6 +26,7 @@
     <!-- Sidebar & Navbar -->
     <!-- End Sidebar & Navbar -->
     <div class="wrapper sidebar_minimize">
+        <x-user-loading></x-user-loading>
         <x-User-Navbar></x-User-Navbar>
         <div class="main-panel">
             <x-User-Profile-Nav>
@@ -34,9 +35,6 @@
 
             {{ $slot }}
 
-            @if(Auth::user()->isAdmin())
-            <x-User-Footer></x-User-Footer>
-            @endif
         </div>
     </div>
 
