@@ -25,19 +25,18 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="container col-4">
-                                    @if (!empty($dataLogin))
                                         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                                             <div id="imageCarousel" class="carousel slide">
                                                 <div class="carousel-inner" id="carousel-inner">
 
+                                                    @if (empty($dataLogin))
+                                                    <div class="carousel-item active" id="default-carousel">
+                                                        <img src="https://placehold.co/400x500"
+                                                        class="d-block object-fit-cover w-100"
+                                                        alt="Slide 1">
+                                                    </div>
+                                                    @else
                                                     @foreach ($dataLogin->relasiMany as $key => $image)
-                                                        @if (empty($image->member_picture))
-                                                            <div class="carousel-item active">
-                                                                <img src="https://placehold.co/400x500"
-                                                                    class="d-block object-fit-cover w-100"
-                                                                    alt="Slide 1">
-                                                            </div>
-                                                        @else
                                                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}"
                                                                 id="image-{{ $image->member_picture_id }}">
                                                                 <img src="{{ asset('img/member/' . $image->member_picture) }}"
@@ -50,23 +49,24 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
+                                                            @endforeach
                                                         @endif
-                                                    @endforeach
                                                 </div>
-                                                <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#imageCarousel" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon"></span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#imageCarousel" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon"></span>
-                                                </button>
+                                                <div id="carousel-controls" class="invisible">
+                                                    <button class="carousel-control-prev" type="button"
+                                                        data-bs-target="#imageCarousel" data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"></span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button"
+                                                        data-bs-target="#imageCarousel" data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"></span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    @endif
                                     @if (empty($dataLogin))
                                         <input type="file" class="text-center form-control mt-3" id="imageInput"
-                                            name="memberImage[]" multiple required>
+                                            name="memberImage[]" multiple required accept=".jpg,.jpeg,.png,.svg">
                                     @else
                                         <input type="file" id="newImages" class="text-center form-control mt-3" name="new_images[]" multiple accept=".jpg,.jpeg,.png,.svg" onchange="previewImages(event)">
                                     @endif

@@ -5,15 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
     //! Akhir Modal
 });
 
-document.getElementById("btn-submit").addEventListener("submit", function (event) {
-    // Tampilkan loading saat form dikirim
-    event.preventDefault();
-    document.getElementById("loading").classList.remove("visually-hidden");
-    setTimeout(() => {
-        // document.getElementById("loading").classList.add("visually-hidden");
-        event.target.submit();
-    }, 3000);
-});
+// document.getElementById("btn-submit").addEventListener("submit", function (event) {
+//     // Tampilkan loading saat form dikirim
+//     event.preventDefault();
+//     document.getElementById("loading").classList.remove("visually-hidden");
+//     setTimeout(() => {
+//         // document.getElementById("loading").classList.add("visually-hidden");
+//         event.target.submit();
+//     }, 3000);
+// });
 
 //! IDK Part 2
 WebFont.load({
@@ -255,97 +255,96 @@ document.getElementById("NewsModal").innerHTML = modalHtml;
 }
 //! End EditNews
 
-let newImageCounter = 0; // Counter untuk memberi ID unik ke gambar baru
+function previewImages(event) {
+    const files = event.target.files;
+    const carouselInner = document.querySelector(".carousel-inner");
+    let newImageCounter = 0; // Counter untuk memberi ID unik ke gambar baru
 
-        function previewImages(event) {
-            const files = event.target.files;
-            const carouselInner = document.querySelector(".carousel-inner");
+    for (let file of files) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            newImageCounter++; // Tambah ID unik
+            let newImageId = `new-image-${newImageCounter}`;
 
-            for (let file of files) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    newImageCounter++; // Tambah ID unik
-                    let newImageId = `new-image-${newImageCounter}`;
+            let newItem = document.createElement("div");
+            newItem.classList.add("carousel-item");
+            newItem.setAttribute("id", newImageId); // Tambahkan ID unik
 
-                    let newItem = document.createElement("div");
-                    newItem.classList.add("carousel-item");
-                    newItem.setAttribute("id", newImageId); // Tambahkan ID unik
+            newItem.innerHTML = `
+        <img src="${e.target.result}" class="d-block w-100">
+        <div class="carousel-caption d-none d-md-block">
+            <button type="button"
+                onclick="removeIMG('${newImageId}')"
+                class="btn btn-danger">
+                Hapus Gambar
+            </button>
+        </div>
+    `;
 
-                    newItem.innerHTML = `
-                <img src="${e.target.result}" class="d-block w-100">
-                <div class="carousel-caption d-none d-md-block">
-                    <button type="button"
-                        onclick="removeIMG('${newImageId}')"
-                        class="btn btn-danger">
-                        Hapus Gambar
-                    </button>
-                </div>
-            `;
+            carouselInner.appendChild(newItem);
 
-                    carouselInner.appendChild(newItem);
+            // Jika ini gambar pertama yang baru diunggah, jadikan aktif
+            if (carouselInner.children.length === files.length + document.querySelectorAll(".carousel-item")
+                .length) {
+                newItem.classList.add("active");
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+}
 
-                    // Jika ini gambar pertama yang baru diunggah, jadikan aktif
-                    if (carouselInner.children.length === files.length + document.querySelectorAll(".carousel-item")
-                        .length) {
-                        newItem.classList.add("active");
-                    }
-                };
-                reader.readAsDataURL(file);
+function removeIMG(imageId) {
+    const imageDiv = document.getElementById(`image-${imageId}`); // Untuk gambar lama
+    const imageDivNew = document.getElementById(imageId); // Untuk gambar baru
+    const hiddenInputContainer = document.getElementById("deletedImagesContainer");
+    let imageDivActive = null;
+
+    // Cari gambar berikutnya untuk dijadikan active
+    if (imageDiv && imageDiv.nextElementSibling) {
+        imageDivActive = imageDiv.nextElementSibling;
+    } else if (imageDivNew && imageDivNew.nextElementSibling) {
+        imageDivActive = imageDivNew.nextElementSibling;
+    } else {
+        // Jika tidak ada next sibling, coba cari gambar sebelumnya
+        if (imageDiv && imageDiv.previousElementSibling) {
+            imageDivActive = imageDiv.previousElementSibling;
+        } else if (imageDivNew && imageDivNew.previousElementSibling) {
+            imageDivActive = imageDivNew.previousElementSibling;
+        }
+    }
+
+    // Hapus elemen gambar
+    if (imageDiv) {
+        imageDiv.remove();
+    }
+    if (imageDivNew) {
+        imageDivNew.remove();
+    }
+
+    // Jadikan gambar berikutnya aktif jika ada
+    if (imageDivActive) {
+        imageDivActive.classList.add('active');
+    }
+
+    let input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "delete_images[]";
+    input.value = imageId;
+    hiddenInputContainer.appendChild(input);
+
+    // Jika gambar baru dihapus, kosongkan input file
+    const fileInput = document.getElementById("newImages");
+    if (fileInput) {
+        let dataTransfer = new DataTransfer();
+        for (let i = 0; i < fileInput.files.length; i++) {
+            let file = fileInput.files[i];
+            if (imageId !== `new-image-${i + 1}`) { // Pastikan hanya file yang tidak dihapus tetap ada
+                dataTransfer.items.add(file);
             }
         }
-
-        function removeIMG(imageId) {
-            const imageDiv = document.getElementById(`image-${imageId}`); // Untuk gambar lama
-            const imageDivNew = document.getElementById(imageId); // Untuk gambar baru
-            const hiddenInputContainer = document.getElementById("deletedImagesContainer");
-            let imageDivActive = null;
-
-            // Cari gambar berikutnya untuk dijadikan active
-            if (imageDiv && imageDiv.nextElementSibling) {
-                imageDivActive = imageDiv.nextElementSibling;
-            } else if (imageDivNew && imageDivNew.nextElementSibling) {
-                imageDivActive = imageDivNew.nextElementSibling;
-            } else {
-                // Jika tidak ada next sibling, coba cari gambar sebelumnya
-                if (imageDiv && imageDiv.previousElementSibling) {
-                    imageDivActive = imageDiv.previousElementSibling;
-                } else if (imageDivNew && imageDivNew.previousElementSibling) {
-                    imageDivActive = imageDivNew.previousElementSibling;
-                }
-            }
-
-            // Hapus elemen gambar
-            if (imageDiv) {
-                imageDiv.remove();
-            }
-            if (imageDivNew) {
-                imageDivNew.remove();
-            }
-
-            // Jadikan gambar berikutnya aktif jika ada
-            if (imageDivActive) {
-                imageDivActive.classList.add('active');
-            }
-
-            let input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "delete_images[]";
-            input.value = imageId;
-            hiddenInputContainer.appendChild(input);
-
-            // Jika gambar baru dihapus, kosongkan input file
-            const fileInput = document.getElementById("newImages");
-            if (fileInput) {
-                let dataTransfer = new DataTransfer();
-                for (let i = 0; i < fileInput.files.length; i++) {
-                    let file = fileInput.files[i];
-                    if (imageId !== `new-image-${i + 1}`) { // Pastikan hanya file yang tidak dihapus tetap ada
-                        dataTransfer.items.add(file);
-                    }
-                }
-                fileInput.files = dataTransfer.files;
-            }
-        }
+        fileInput.files = dataTransfer.files;
+    }
+}
 
 
 //! Start EditMember
@@ -385,14 +384,16 @@ async function EditMemberImg(member) {
                                     </div>
                                 `).join('')}
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel${member.member_id}" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel${member.member_id}" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                            <div id="carousel-controls" class="${(memberPicture.length > 1) ? '' : 'invisible'}">
+                                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel${member.member_id}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel${member.member_id}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <input type="file" class="text-center form-control mt-3" id="newImages" name="new_images[]" multiple onchange="previewImages(event)" accept=".jpg,.jpeg,.png,.svg">
@@ -591,21 +592,27 @@ function updateFileInput() {
   document.getElementById('imageInput').files = dataTransfer.files;
 }
 
+const defaultCarousel = document.getElementById('default-carousel');
 function renderCarousel() {
   const carouselElement = document.getElementById('imageCarousel');
   const carouselInner = document.querySelector('.carousel-inner');
-  const carouselIndicators = document.querySelector('.carousel-indicators');
-  const prevNextControls = document.querySelector('.carousel-controls');
+//   const carouselIndicators = document.querySelector('.carousel-indicators');
+  const prevNextControls = document.getElementById('carousel-controls');
 
   // Clear existing content
   carouselInner.innerHTML = '';
-  carouselIndicators.innerHTML = '';
+//   carouselIndicators.innerHTML = '';
   
   // Handle empty state
   if (selectedFiles.length === 0) {
       // carouselElement.style.display = 'none';
-    if (prevNextControls) prevNextControls.remove();
+    if (prevNextControls){
+        prevNextControls.remove();
+        carouselInner.appendChild(defaultCarousel);
+    }
     return;
+  } else if(selectedFiles.length > 1) {
+    prevNextControls.classList.remove('invisible');
   }
 
   carouselElement.style.display = 'block';
@@ -637,7 +644,7 @@ function renderCarousel() {
     indicator.dataset.bsSlideTo = index;
     indicator.className = index === 0 ? 'active' : '';
     indicator.setAttribute('aria-label', `Slide ${index + 1}`);
-    carouselIndicators.appendChild(indicator);
+    // carouselIndicators.appendChild(indicator);
   });
 
   // Handle controls visibility

@@ -16,7 +16,7 @@
                     <img src="{{ asset('template/image/instagram.svg') }}" alt="Instagram"
                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">
                 </a>
-                <a href="https://discord.gg/5hAUJR2Z" target="_blank"
+                <a href="https://discord.gg/rnTHUGH46S" target="_blank"
                     class="p-2 hover:scale-110 transition-transform duration-300">
                     <img src="{{ asset('template/image/discord.svg') }}" alt="Discord"
                         class="w-8 h-8 md:w-10 md:h-10 hover:opacity-80">

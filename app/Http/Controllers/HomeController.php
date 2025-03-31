@@ -49,7 +49,7 @@ class HomeController extends Controller
     }
     public function aboutUs(){
         $data = [];
-        return view('Main.aboutUs',compact('data'),['title'=>'About Us']);
+        return view('Main.aboutUs',compact('data'),['title'=>'Diversi-TI']);
     }
     public function login()
     {
@@ -103,7 +103,7 @@ class HomeController extends Controller
         Auth::logout();
         session()->flush();
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 
     public function regis(){
@@ -176,5 +176,12 @@ class HomeController extends Controller
         return redirect()->route('user-index-admin')->with('sukses', 'User berhasil diubah');
     }
 //! End Hak Akses ADMIN
+
+    public function ricroll(){
+        return redirect()->away('https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley');
+    }
+    public function judol(){
+        return redirect()->away('https://www.youtube.com/shorts/afz_Lo47gsc?feature=share');
+    }
 
 }

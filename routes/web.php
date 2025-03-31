@@ -12,11 +12,16 @@ Route::get('/about-us',[HomeController::class,'aboutUs'])->name('about-us');
 Route::get('/detail-news/{id}',[HomeController::class,'detailNews'])->name('detail-news');
 Route::get('/news', [HomeController::class, 'news'])->name('news');
 
-Route::get('/login',[HomeController::class,'login'])->name('login');
-Route::post('/login', [HomeController::class, 'loginAuth'])->name('loginAuth');
+Route::get('/login',[HomeController::class,'ricroll']);
+Route::get('/regis',[HomeController::class,'ricroll']);
+Route::get('/admin',[HomeController::class,'ricroll']);
+Route::get('/judol',[HomeController::class,'judol']);
+
+Route::get('/SpyHolder/Diversilogin',[HomeController::class,'login'])->name('login');
+Route::post('/SpyHolder/Diversilogin', [HomeController::class, 'loginAuth'])->name('loginAuth');
 Route::post('/logout',[HomeController::class,'logout'])->name('logout');
-Route::get('/regis',[HomeController::class,'regis'])->name('regis');
-Route::post('/proses-regis',[HomeController::class,'prosesRegis'])->name('proses-regis');
+Route::get('/SpyHolder/Diversiregis',[HomeController::class,'regis'])->name('regis');
+Route::post('/SpyHolder/Diversiproses-regis',[HomeController::class,'prosesRegis'])->name('proses-regis');
 
 
 //! Route khusus admin
