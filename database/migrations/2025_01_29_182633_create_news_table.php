@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('content_news');
             $table->timestamps();
 
-            $table->foreign('login_id')->references('login_id')->on('Logins')->onDelete('cascade');
+            $table->foreign('login_id')->references('login_id')->on('logins')->onDelete('cascade');
         });
     }
 
