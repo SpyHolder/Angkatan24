@@ -11,6 +11,7 @@ Route::get('/members',[HomeController::class,'members'])->name('members');
 Route::get('/about-us',[HomeController::class,'aboutUs'])->name('about-us');
 Route::get('/detail-news/{id}',[HomeController::class,'detailNews'])->name('detail-news');
 Route::get('/news', [HomeController::class, 'news'])->name('news');
+Route::get('/', [HomeController::class, 'news'])->name('news');
 
 Route::get('/login',[HomeController::class,'ricroll']);
 Route::get('/regis',[HomeController::class,'ricroll']);
