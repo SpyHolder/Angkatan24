@@ -13,10 +13,10 @@ services:
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
-        value: <YOUR_DATABASE_HOST>
+        value: sql12.freesqldatabase.com
       - key: DB_DATABASE
-        value: <YOUR_DATABASE_NAME>
+        value: sql12770756
       - key: DB_USERNAME
-        value: <YOUR_DATABASE_USER>
+        value: sql12770756
       - key: DB_PASSWORD
-        value: <YOUR_DATABASE_PASSWORD>
+        value: MXsu4jQnAE
