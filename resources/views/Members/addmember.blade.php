@@ -25,50 +25,51 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="container col-4">
-                                        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                                            <div id="imageCarousel" class="carousel slide">
-                                                <div class="carousel-inner" id="carousel-inner">
+                                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                                        <div id="imageCarousel" class="carousel slide">
+                                            <div class="carousel-inner" id="carousel-inner">
 
-                                                    @if (empty($dataLogin))
+                                                @if (empty($dataLogin))
                                                     <div class="carousel-item active" id="default-carousel">
                                                         <img src="https://placehold.co/400x500"
-                                                        class="d-block object-fit-cover w-100"
-                                                        alt="Slide 1">
+                                                            class="d-block object-fit-cover w-100" alt="Slide 1">
                                                     </div>
-                                                    @else
+                                                @else
                                                     @foreach ($dataLogin->relasiMany as $key => $image)
-                                                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}"
-                                                                id="image-{{ $image->member_picture_id }}">
-                                                                <img src="{{ asset('img/member/' . $image->member_picture) }}"
-                                                                    class="d-block w-100" width="100">
-                                                                <div class="carousel-caption d-none d-md-block">
-                                                                    <button type="button"
-                                                                        onclick="removeIMG('{{ $image->member_picture_id }}')"
-                                                                        class="btn btn-danger">
-                                                                        Hapus Gambar
-                                                                    </button>
-                                                                </div>
+                                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}"
+                                                            id="image-{{ $image->member_picture_id }}">
+                                                            <img src="{{ asset('img/member/' . $image->member_picture) }}"
+                                                                class="d-block w-100" width="100">
+                                                            <div class="carousel-caption d-none d-md-block">
+                                                                <button type="button"
+                                                                    onclick="removeIMG('{{ $image->member_picture_id }}')"
+                                                                    class="btn btn-danger">
+                                                                    Hapus Gambar
+                                                                </button>
                                                             </div>
-                                                            @endforeach
-                                                        @endif
-                                                </div>
-                                                <div id="carousel-controls" class="invisible">
-                                                    <button class="carousel-control-prev" type="button"
-                                                        data-bs-target="#imageCarousel" data-bs-slide="prev">
-                                                        <span class="carousel-control-prev-icon"></span>
-                                                    </button>
-                                                    <button class="carousel-control-next" type="button"
-                                                        data-bs-target="#imageCarousel" data-bs-slide="next">
-                                                        <span class="carousel-control-next-icon"></span>
-                                                    </button>
-                                                </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                            <div id="carousel-controls" class="invisible">
+                                                <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#imageCarousel" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon"></span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#imageCarousel" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon"></span>
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
                                     @if (empty($dataLogin))
                                         <input type="file" class="text-center form-control mt-3" id="imageInput"
                                             name="memberImage[]" multiple required accept=".jpg,.jpeg,.png,.svg">
                                     @else
-                                        <input type="file" id="newImages" class="text-center form-control mt-3" name="new_images[]" multiple accept=".jpg,.jpeg,.png,.svg" onchange="previewImages(event)">
+                                        <input type="file" id="newImages" class="text-center form-control mt-3"
+                                            name="new_images[]" multiple accept=".jpg,.jpeg,.png,.svg"
+                                            onchange="previewImages(event)">
                                     @endif
                                 </div>
 
@@ -77,21 +78,27 @@
                                         <div class="col-7">
                                             <label for="fullname" class="form-label">Full Name</label>
                                             <input type="text" class="form-control" id="fullname" name="fullname"
-                                                required value="{{ $dataLogin->full_name ?? '' }}" placeholder="Masukkan nama lengkap">
+                                                required value="{{ $dataLogin->full_name ?? '' }}"
+                                                placeholder="Masukkan nama lengkap">
                                         </div>
                                         <div class="container">
                                             <label for="nim" class="form-label">NIM</label>
                                             <input type="number" class="form-control" id="nim" name="nim"
                                                 required value="{{ $dataLogin->nim ?? '' }}" max="9999999999">
+                                            @error('nim')
+                                                <p class="text-danger ms-2" style="font-size: 12px">*{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="mt-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea name="description" id="description" class="form-control" rows="5" placeholder="Berikan deskripsi diri kalian">{{ $dataLogin->description ?? '' }}</textarea>
+                                        <textarea name="description" id="description" class="form-control" rows="5"
+                                            placeholder="Berikan deskripsi diri kalian">{{ $dataLogin->description ?? '' }}</textarea>
                                     </div>
                                     <div class="mt-3">
                                         <label for="Quote" class="form-label">Quote</label>
-                                        <textarea name="quote" id="Quote" class="form-control" rows="3" placeholder="Masukkan quote Yang Sesuai denga kalian">{{ $dataLogin->quote ?? '' }}</textarea>
+                                        <textarea name="quote" id="Quote" class="form-control" rows="3"
+                                            placeholder="Masukkan quote Yang Sesuai denga kalian">{{ $dataLogin->quote ?? '' }}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col">
@@ -110,24 +117,28 @@
                                         <div class="col">
                                             <label for="instagram" class="form-label">Instagram</label>
                                             <input type="url" class="form-control" id="instagram"
-                                                name="instagram" value="{{ $dataLogin->instagram ?? '' }}" placeholder="Masukkan URL Instagram">
+                                                name="instagram" value="{{ $dataLogin->instagram ?? '' }}"
+                                                placeholder="Masukkan URL Instagram">
                                         </div>
                                         <div class="col">
                                             <label for="Github" class="form-label">Github</label>
                                             <input type="url" class="form-control" id="Github" name="github"
-                                                value="{{ $dataLogin->github ?? '' }}" placeholder="Masukkan URL Github">
+                                                value="{{ $dataLogin->github ?? '' }}"
+                                                placeholder="Masukkan URL Github">
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col">
                                             <label for="LinkedID" class="form-label">LinkedID</label>
                                             <input type="url" class="form-control" id="LinkedID"
-                                                name="linkedid" value="{{ $dataLogin->linkedid ?? '' }}" placeholder="Masukkan URL LinkedIn">
+                                                name="linkedid" value="{{ $dataLogin->linkedid ?? '' }}"
+                                                placeholder="Masukkan URL LinkedIn">
                                         </div>
                                         <div class="col">
                                             <label for="Website" class="form-label">Website</label>
                                             <input type="url" class="form-control" id="Website" name="website"
-                                                value="{{ $dataLogin->website ?? '' }}" placeholder="Masukkan URL Website">
+                                                value="{{ $dataLogin->website ?? '' }}"
+                                                placeholder="Masukkan URL Website">
                                         </div>
                                     </div>
                                 </div>

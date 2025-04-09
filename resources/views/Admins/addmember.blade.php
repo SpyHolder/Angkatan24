@@ -47,6 +47,9 @@
                                             <label for="nim" class="form-label">NIM</label>
                                             <input type="number" class="form-control" id="nim" name="nim"
                                                 required max="9999999999">
+                                            @error('nim')
+                                                <p class="text-danger ms-2" style="font-size: 12px">*{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="mt-3">
@@ -77,7 +80,7 @@
                                                     <option value="Wakil Ketua Angkatan">Wakil Ketua Angkatan</option>
                                                     <option value="Bendahara">Bendahara</option>
                                                     <option value="Seketaris">Seketaris</option>
-                                                    </select>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row">

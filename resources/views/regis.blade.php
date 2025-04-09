@@ -52,7 +52,7 @@
     <div class="container-fluid">
         <form class="form-login d-flex flex-column gap-2" action="{{ route('proses-regis') }}" method="post"
             enctype="multipart/form-data">
-            @csrf
+            {{ csrf_field() }}
             <h3 class="fw-normal text-center">Daftar Akun</h3>
             <!-- Nama -->
             <div>

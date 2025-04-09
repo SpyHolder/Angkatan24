@@ -8,29 +8,49 @@
             $firstNews = $data->first();
         @endphp
 
-        @if($firstNews->status === 1) 
-        {{-- Content --}}
-        <a href="{{ route('detail-news', $firstNews->news_id) }}" class="group ">
-            <div class="w-full md:px-0 md:w-[800px] animate-fade-right animate-duration-1000 animate-delay-[600ms]">
-                <div class="px-2">
-                    <div class="overflow-hidden rounded-2xl">
-                        <img src="{{ asset('img/news/' . $firstNews->picture_news) }}" alt="Berita Eksklusif"
-                            class="object-fill group-hover:scale-110 transition-transform duration-200 ease-in-out">
+        @if (!empty($firstNews->status))    
+            @if($firstNews->status === 1) 
+            {{-- Content --}}
+            <a href="{{ route('detail-news', $firstNews->news_id) }}" class="group ">
+                <div class="w-full md:px-0 md:w-[800px] animate-fade-right animate-duration-1000 animate-delay-[600ms]">
+                    <div class="px-2">
+                        <div class="overflow-hidden rounded-2xl">
+                            <img src="{{ asset('img/news/' . $firstNews->picture_news) }}" alt="Berita Eksklusif"
+                                class="object-fill group-hover:scale-110 transition-transform duration-200 ease-in-out">
+                        </div>
+                    </div>
+                    <div class="px-2 mt-2">
+                        <p class="text-right text-xs md:text-base">{{ $firstNews->login->username }},
+                            {{ $firstNews->covarage_area }}
+                            | {{ $firstNews->date_publish->translatedFormat('d F Y') }},
+                            {{ $firstNews->time_publish }}
+                        </p>
+                        <p class="text-xl md:text-3xl font-bold mt-4 group-hover:underline px-2">{{ $firstNews->headline_news }}</p>
+                        <p class="text-sm md:text-lg mt-2 line-clamp-3 px-2">
+                            {{ str_replace('&nbsp;', ' ', strip_tags($firstNews->content_news)) }}</p>
                     </div>
                 </div>
-                <div class="px-2 mt-2">
-                    <p class="text-right text-xs md:text-base">{{ $firstNews->login->username }},
-                        {{ $firstNews->covarage_area }}
-                        | {{ $firstNews->date_publish->translatedFormat('d F Y') }},
-                        {{ $firstNews->time_publish }}
-                    </p>
-                    <p class="text-xl md:text-3xl font-bold mt-4 group-hover:underline px-2">{{ $firstNews->headline_news }}</p>
-                    <p class="text-sm md:text-lg mt-2 line-clamp-3 px-2">
-                        {{ str_replace('&nbsp;', ' ', strip_tags($firstNews->content_news)) }}</p>
+            </a>
+            @endif
+        @else
+            {{-- Content --}}
+            <a href="" class="group ">
+                <div class="w-full md:px-0  animate-fade-right animate-duration-1000 animate-delay-[600ms]">
+                    <div class="px-2">
+                        <div class="overflow-hidden rounded-2xl  object-cover">
+                            <img src="https://placehold.co/700x900" alt="Berita Eksklusif"
+                                class="object-cover h-[300px] md:w-[700px] md:h-[400px] group-hover:scale-110 transition-transform duration-200 ease-in-out">
+                        </div>
+                    </div>
+                    <div class="px-2 mt-2">
+                        <p class="text-right text-xs md:text-base">
+                        </p>
+                        <p class="text-xl md:text-3xl font-bold mt-4 group-hover:underline px-2"></p>
+                        <p class="text-sm md:text-lg mt-2 line-clamp-3 px-2"></p>
+                    </div>
                 </div>
-            </div>
-        </a>
-    @endif
+            </a>
+        @endif
         {{-- Acara --}}
         <div class="hidden md:block animate-fade-left animate-duration-1000 animate-delay-[400ms]">
             <img src="https://placehold.co/400x600" alt="" class="rounded-xl">
@@ -72,7 +92,7 @@
                                 id="grid-item">
                                 <a href="{{ route('detail-news', $news->news_id) }}" class="">
                                     <div class=" overflow-hidden w-36 md:w-full">
-                                        <img class="md:rounded-t-lg w-full h-32 object-cover group-hover:scale-110 transition-transform duration-200 ease-in-out"
+                                        <img class="md:rounded-t-lg w-full h-44 object-cover group-hover:scale-110 transition-transform duration-200 ease-in-out"
                                             src="{{ asset('img/news/' . $news->picture_news) }}" alt="Berita terbaru" />
                                     </div>
                                     <div class="p-2 md:p-3">

@@ -110,6 +110,7 @@ class HomeController extends Controller
         return view('regis');
     }
     public function prosesRegis(Request $req){
+        // dd($req);
         $validasi = $req->validate([
             'username'=>'required|unique:Logins,username',
             'email'=> 'required|unique:Logins,email',
@@ -120,7 +121,7 @@ class HomeController extends Controller
             'password.confirmed'=>'Password tidak sesuai',
         ]);
 
-        $crete = Login::create([
+        $crete = Login::create([        
             'username'=>$validasi['username'],
             'email'=>$validasi['email'],
             'password'=>Hash::make($validasi['password']),

@@ -46,12 +46,14 @@ class MemberController extends Controller
     public function storeMember(Request $request){
         $validasi = $request->validate([
             'fullname' => 'required',
-            'nim' => 'required',
+            'nim' => 'required|unique:members,nim',
             'description' => 'required',
             'quote' => 'required',
             'yearin' => 'required',
             'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,svg',
             'memberImage.*' => 'required|image|mimes:jpeg,png,jpg,svg',
+        ],[
+            'nim.unique' => 'NIM sudah dimiliki orang',
         ]);
 
         $dataAnggota = array_filter([
