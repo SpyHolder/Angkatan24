@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('nim')->unique();
             $table->text('description');
-            $table->string('quote');
+            $table->text('quote');
             $table->year('year_in');
             $table->year('year_out')->nullable();
             $table->enum('rarity',['SSR','SR','R','N'])->nullable();

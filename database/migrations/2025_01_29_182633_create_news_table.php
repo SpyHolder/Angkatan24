@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id('news_id')->increment();
             $table->string('picture_news');
-            $table->string('headline_news');
+            $table->text('headline_news');
             $table->integer('status')->default('0');
             $table->unsignedBigInteger('login_id');
             $table->string('covarage_area');
