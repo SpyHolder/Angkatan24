@@ -3,9 +3,7 @@
 
 # RESULT
 ## Dashboard
-<p align="center">
-    <img src="https://ibb.co/nVHqfv3" alt="" />
-</p>
+![MasterHead](https://ibb.co/nVHqfv3)
 <br/>
 
 ## Link Prototype Figma
