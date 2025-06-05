@@ -4,9 +4,9 @@
 # RESULT
 ## Dashboard
 <p align="center">
-  <a href="https://github.com/DenverCoder1">
-    <h1 align="center">Hi 👋, I'm Ikhsan</h1>
+    <img src="https://ibb.co/nVHqfv3" alt="" />
 </p>
+<br/>
 
 ## Link Prototype Figma
 ```bash
@@ -24,5 +24,6 @@ composer update
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
+npm install
 php artisan serve
 ```
