@@ -1,5 +1,12 @@
-# MASIH DALAM TAHAP PEMBUATAN!!
+# WEBSITE BERITA TEKNIK INFORMATIKA ANGKATAN 24
 <br/>
+
+# RESULT
+## Dashboard
+<p align="center">
+  <a href="https://github.com/DenverCoder1">
+    <h1 align="center">Hi 👋, I'm Ikhsan</h1>
+</p>
 
 ## Link Prototype Figma
 ```bash
@@ -19,4 +26,3 @@ php artisan key:generate
 php artisan migrate
 php artisan serve
 ```
-# HAVE FUN FOR YOUR ADVENTURE 🖕🖕🖕
