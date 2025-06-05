@@ -4,6 +4,7 @@
 # Main Page
 ## News
 <p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/dashboard.gif" alt="dahsboard"/> </p>
+<p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/news%20detail.gif" alt="dahsboard"/> </p>
 <br/>
 
 ## Members
@@ -18,6 +19,10 @@
 # Admin Page
 ## Management News
 <p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/user%20News.png" alt="members"/> </p>
+<p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/news%20input.png" alt="members"/> </p>
+<br/>
+## Management Members
+<p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/user%20input.png" alt="members"/> </p>
 <br/>
 
 ## Link Prototype Figma
