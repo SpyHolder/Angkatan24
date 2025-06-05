@@ -20,7 +20,7 @@ Dalam project ini teknologi yang saya gunakan itu adalah framwwork Laravel 11 se
 <p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/news%20input.png" alt="news"/> </p>
 
 ## Management Members
-<p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/user%2Members.png" alt="admin-members"/> </p>
+<p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/User%20Members.png" alt="admin-members"/> </p>
 <p align="center" > <img src="https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/user%20input.png" alt="admin-members"/> </p>
 <br/>
 
