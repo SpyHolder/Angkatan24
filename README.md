@@ -3,7 +3,7 @@
 
 # RESULT
 ## Dashboard
-![MasterHead](https://ibb.co/nVHqfv3)
+![MasterHead]([https://ibb.co/nVHqfv3](https://github.com/SpyHolder/Angkatan24/blob/master/asset%20readMe/dashboard.gif))
 <br/>
 
 ## Link Prototype Figma
