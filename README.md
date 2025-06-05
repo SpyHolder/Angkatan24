@@ -1,5 +1,5 @@
 # WEBSITE BERITA TEKNIK INFORMATIKA ANGKATAN 24
-Dalam project ini teknologi yang saya gunakan itu adalah framwwork Laravel 11 serta tailwindcss sebagai UI/UX. Untuk databasenya menggunakan MySQL. Project ini dikerjakan oleh saya sendiri dan di sedikit dibantu oleh teman saya terkait design login dan register. Lama pembuatannya sekitar 6 bulan, yang membuat lamanya pembuatan website ini karna waktu perkuliahan dengan pembuatan website ini yang sailing bentrokan, jadi mohon di maklumin 🤓
+Dalam project ini teknologi yang saya gunakan itu adalah framwwork Laravel 11 serta tailwindcss sebagai UI/UX. Untuk databasenya menggunakan MySQL. Project ini dikerjakan oleh saya sendiri dan sedikit dibantu oleh teman saya terkait design login dan register. Lama pembuatannya sekitar 6 bulan, yang membuat lamanya pembuatan website ini karna waktu perkuliahan dengan pembuatan website ini yang saling bentrokan, jadi mohon di maklumin 🤓
 <br/>
 
 # Main Page
